@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://d3nwqfdhl8bb2"]
+
+[ext_resource type="Script" uid="uid://cekicuumqwlb2" path="res://scenes/splash_screen.gd" id="1_n4g2v"]
+[ext_resource type="Texture2D" uid="uid://8ahs6367w2qb" path="res://assets/godot-logo.png" id="2_4gp4q"]
+[ext_resource type="Texture2D" uid="uid://dbsrf2b0hjmh8" path="res://assets/game-off-logo.png" id="2_hsxvm"]
+
+[node name="SplashScreen" type="Control" unique_id=288295187 node_paths=PackedStringArray("screen_list")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+script = ExtResource("1_n4g2v")
+fade_time = 0.3
+screen_list = [NodePath("GameOffScreen"), NodePath("GodotScreen")]
+metadata/_custom_type_script = "uid://cekicuumqwlb2"
+
+[node name="BackGround" type="MarginContainer" parent="." unique_id=1686499515]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="BackGround" unique_id=1200394015]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="GameOffScreen" type="MarginContainer" parent="." unique_id=2124686622]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="GameOffScreen" unique_id=1730065758]
+layout_mode = 2
+texture = ExtResource("2_hsxvm")
+expand_mode = 5
+
+[node name="GodotScreen" type="MarginContainer" parent="." unique_id=1394609470]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="ColorRect" type="ColorRect" parent="GodotScreen" unique_id=1954284517]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="GodotScreen" unique_id=10173259]
+custom_maximum_size = Vector2(360, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="GodotScreen/MarginContainer" unique_id=822625303]
+layout_mode = 2
+texture = ExtResource("2_4gp4q")
+expand_mode = 3
+stretch_mode = 5
