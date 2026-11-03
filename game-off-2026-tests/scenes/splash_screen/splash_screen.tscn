@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d3nwqfdhl8bb2"]
 
-[ext_resource type="Script" uid="uid://cekicuumqwlb2" path="res://scenes/splash_screen.gd" id="1_n4g2v"]
+[ext_resource type="Script" uid="uid://cekicuumqwlb2" path="res://scenes/splash_screen/splash_screen.gd" id="1_n4g2v"]
 [ext_resource type="Texture2D" uid="uid://8ahs6367w2qb" path="res://assets/godot-logo.png" id="2_4gp4q"]
 [ext_resource type="Texture2D" uid="uid://dbsrf2b0hjmh8" path="res://assets/game-off-logo.png" id="2_hsxvm"]
 
@@ -14,6 +14,7 @@ grow_vertical = 2
 size_flags_vertical = 4
 script = ExtResource("1_n4g2v")
 fade_time = 0.3
+screen_time = 1.2
 screen_list = [NodePath("GameOffScreen"), NodePath("GodotScreen")]
 metadata/_custom_type_script = "uid://cekicuumqwlb2"
 
