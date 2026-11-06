@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://b7r6ec1p374jd"]
+
+[ext_resource type="Script" uid="uid://bdcf4gm5rr0n2" path="res://scenes/test_levels/test_player/test_player.gd" id="1_gi7mq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gi7mq"]
+albedo_color = Color(1, 0.14509805, 0.19215687, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_c113o"]
+material = SubResource("StandardMaterial3D_gi7mq")
+radius = 0.15
+height = 0.6
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_45ucu"]
+radius = 0.15
+height = 0.6
+
+[node name="TestPlayer" type="CharacterBody3D" unique_id=2014473256]
+collision_layer = 2
+script = ExtResource("1_gi7mq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=355769054]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+mesh = SubResource("CapsuleMesh_c113o")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1843930666]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+shape = SubResource("CapsuleShape3D_45ucu")
+
+[node name="Head" type="Node3D" parent="." unique_id=11303273]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.1)
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=957397120]

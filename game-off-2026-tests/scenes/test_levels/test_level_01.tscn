@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://5w13vs4o7tr1"]
+
+[ext_resource type="PackedScene" uid="uid://b7r6ec1p374jd" path="res://scenes/test_levels/test_player/test_player.tscn" id="1_m6fpr"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uxerw"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_m6fpr"]
+sky_material = SubResource("ProceduralSkyMaterial_uxerw")
+
+[sub_resource type="Environment" id="Environment_o58py"]
+background_mode = 2
+sky = SubResource("Sky_m6fpr")
+glow_enabled = true
+
+[node name="TestLevel01" type="Node3D" unique_id=1523676533]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=400333548]
+environment = SubResource("Environment_o58py")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=971338076]
+transform = Transform3D(0.5620834, 0.5693247, -0.59994304, 0, 0.7253744, 0.68835455, 0.82708055, -0.38691267, 0.40772092, 0, 24.1, -35.5)
+shadow_enabled = true
+
+[node name="World" type="CSGCombiner3D" parent="." unique_id=2093559989]
+use_collision = true
+
+[node name="Floor" type="CSGBox3D" parent="World" unique_id=1908808550]
+use_collision = true
+size = Vector3(50, 1, 50)
+
+[node name="Building01" type="CSGBox3D" parent="World" unique_id=1794865649]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9500003, 5.4500003, 0)
+size = Vector3(11.900001, 10.900001, 4)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="World/Building01" unique_id=19914602]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.177846, 2.4553611)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="World/Building01" unique_id=300110712]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.205537, -3.1717997, 2.4553611)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="World/Building01" unique_id=1583807465]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.49446273, -1.1717994, 2.4553611)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="World/Building01" unique_id=1151011728]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3944626, -0.07179928, 2.4553611)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="World/Building01" unique_id=882060631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40553737, 1.6282005, 2.4553611)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="World/Building01" unique_id=1896282555]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7055373, 3.1282005, 2.4553611)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="World/Building01" unique_id=622575532]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4944627, 4.0282, 2.4553611)
+
+[node name="Paredes" type="CSGCombiner3D" parent="World" unique_id=432281228]
+
+[node name="Parede01" type="CSGBox3D" parent="World/Paredes" unique_id=1242080962]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08896494, 2.7232733, -7.751457)
+size = Vector3(8, 5, 0.2)
+
+[node name="Entrada" type="CSGBox3D" parent="World/Paredes/Parede01" unique_id=190363782]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -1.2, 0)
+operation = 2
+size = Vector3(1.5, 2.6000001, 1)
+
+[node name="Teto" type="CSGBox3D" parent="World/Paredes" unique_id=1951087061]
+transform = Transform3D(1, 0, 0, 0, 7.4505806e-08, -1.0000001, 0, 1.0000001, 7.4505806e-08, -0.08896494, 5.1232734, -4.901457)
+size = Vector3(8, 5.9, 0.2)
+
+[node name="Parede02" type="CSGBox3D" parent="World/Paredes" unique_id=1415716154]
+transform = Transform3D(-4.3711392e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, -4.3711392e-08, -3.9889653, 2.7232733, -3.7514572)
+size = Vector3(8, 5, 0.2)
+
+[node name="Janela" type="CSGBox3D" parent="World/Paredes/Parede02" unique_id=659927060]
+transform = Transform3D(1, 0, -7.1054274e-15, 0, 1, 0, 7.1054274e-15, 0, 1, -2.3841858e-07, 0, 0)
+operation = 2
+
+[node name="Parede03" type="CSGBox3D" parent="World/Paredes" unique_id=1204533053]
+transform = Transform3D(-4.3711392e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, -4.3711392e-08, 3.8110347, 2.7232733, -3.7514572)
+size = Vector3(8, 5, 0.2)
+
+[node name="Janela" type="CSGBox3D" parent="World/Paredes/Parede03" unique_id=89509756]
+operation = 2
+
+[node name="Parede04" type="CSGBox3D" parent="World/Paredes" unique_id=540406490]
+transform = Transform3D(-4.3711392e-08, 0, -1.0000001, 0, 1, 0, 1.0000001, 0, -4.3711392e-08, 9.111034, 2.7232733, -1.8014572)
+size = Vector3(7.1, 5, 0.2)
+
+[node name="Parede05" type="CSGBox3D" parent="World/Paredes" unique_id=82281631]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.9610357, 2.7232733, 1.6485434)
+size = Vector3(2.5, 5, 0.2)
+
+[node name="Parede06" type="CSGBox3D" parent="World/Paredes" unique_id=422975437]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5610356, 2.7232733, -5.3514566)
+size = Vector3(5.3, 5, 0.2)
+
+[node name="TestPlayer" parent="." unique_id=2014473256 instance=ExtResource("1_m6fpr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.8000001, 13.1)
+jump_velocity = 7.0
