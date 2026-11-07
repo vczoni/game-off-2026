@@ -2,22 +2,32 @@
 
 [ext_resource type="PackedScene" uid="uid://b7r6ec1p374jd" path="res://scenes/test_levels/test_player/test_player.tscn" id="1_m6fpr"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uxerw"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m6fpr"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
 
-[sub_resource type="Sky" id="Sky_m6fpr"]
-sky_material = SubResource("ProceduralSkyMaterial_uxerw")
+[sub_resource type="Sky" id="Sky_o58py"]
+sky_material = SubResource("ProceduralSkyMaterial_m6fpr")
 
-[sub_resource type="Environment" id="Environment_o58py"]
+[sub_resource type="Environment" id="Environment_i4cdh"]
 background_mode = 2
-sky = SubResource("Sky_m6fpr")
+sky = SubResource("Sky_o58py")
+ambient_light_color = Color(1, 1, 0.87058824, 1)
 glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.39723974, 0.39723974, 0.39723974, 1)
+fog_light_energy = 0.51
+fog_sun_scatter = 0.52
+fog_density = 0.0615
+fog_aerial_perspective = 0.154
+fog_sky_affect = 0.361
+fog_height_density = 1.3196
+volumetric_fog_albedo = Color(0.5647059, 1, 0.5372549, 1)
 
 [node name="TestLevel01" type="Node3D" unique_id=1523676533]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=400333548]
-environment = SubResource("Environment_o58py")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1502326054]
+environment = SubResource("Environment_i4cdh")
 
 [node name="Sun" type="DirectionalLight3D" parent="." unique_id=971338076]
 transform = Transform3D(0.5620834, 0.5693247, -0.59994304, 0, 0.7253744, 0.68835455, 0.82708055, -0.38691267, 0.40772092, 0, 24.1, -35.5)

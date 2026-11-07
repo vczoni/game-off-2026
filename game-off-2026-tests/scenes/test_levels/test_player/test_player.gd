@@ -9,6 +9,7 @@ extends CharacterBody3D
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var pitch := 0.0
+var initial_position: Vector3
 
 @onready var head: Node3D = $Head
 
@@ -17,6 +18,7 @@ var pitch := 0.0
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	initial_position = self.position
 
 
 func _physics_process(delta: float) -> void:
@@ -33,6 +35,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+	if event.is_action_pressed("reset_postition"):
+		self.position = initial_position
 
 # aux functions
 
