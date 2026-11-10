@@ -15,6 +15,12 @@ sky_material = SubResource("ProceduralSkyMaterial_tg3t2")
 [sub_resource type="Environment" id="Environment_80jwe"]
 background_mode = 2
 sky = SubResource("Sky_32sbw")
+ambient_light_source = 2
+ambient_light_color = Color(0, 0.2784314, 0.60784316, 1)
+reflected_light_source = 2
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
 glow_enabled = true
 fog_enabled = true
 

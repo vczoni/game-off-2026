@@ -50,5 +50,5 @@ func move(delta) -> void:
 		velocity.y -= gravity * delta
 	else:
 		if Input.is_action_just_pressed("jump"):
-			velocity.y = jump_velocity
+			velocity.y += jump_velocity
 	move_and_slide()
