@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://dr08tuvwcg0w"]
+
+[ext_resource type="Script" uid="uid://dgx8id5nbm7nj" path="res://scenes/test_levels/hud/hud.gd" id="1_aku4i"]
+
+[node name="Hud" type="CanvasLayer" unique_id=1505937620]
+script = ExtResource("1_aku4i")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=321125463]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=419975894]
+layout_mode = 2
+
+[node name="Speed" type="Label" parent="PanelContainer/VBoxContainer" unique_id=480317120]
+layout_mode = 2
+
+[node name="Forces" type="Label" parent="PanelContainer/VBoxContainer" unique_id=371561216]
+layout_mode = 2
+
+[node name="Torque" type="Label" parent="PanelContainer/VBoxContainer" unique_id=431149986]
+layout_mode = 2
+
+[node name="Weight" type="Label" parent="PanelContainer/VBoxContainer" unique_id=295615471]
+layout_mode = 2
+
+[node name="CG" type="Label" parent="PanelContainer/VBoxContainer" unique_id=174347802]
+layout_mode = 2

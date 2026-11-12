@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://c0qfil44ktd4t"]
+
+[ext_resource type="Material" uid="uid://cgk4glwmc4vk2" path="res://addons/terrain_3d/extras/shaders/M_ocean.tres" id="1_8v56q"]
+[ext_resource type="Texture2D" uid="uid://bhjl1vbycd5oe" path="res://scenes/test_levels/terrain_resource/rock030_alb_ht.dds" id="1_tg3t2"]
+[ext_resource type="Texture2D" uid="uid://cx87kuccdguca" path="res://scenes/test_levels/terrain_resource/rock030_nrm_rgh.png" id="2_32sbw"]
+[ext_resource type="PackedScene" uid="uid://c0iwjuissxjah" path="res://scenes/test_levels/test_player_rigid/TestPlayerRigid.tscn" id="4_tg3t2"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tg3t2"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_32sbw"]
+sky_material = SubResource("ProceduralSkyMaterial_tg3t2")
+
+[sub_resource type="Environment" id="Environment_80jwe"]
+background_mode = 2
+sky = SubResource("Sky_32sbw")
+ambient_light_source = 2
+ambient_light_color = Color(0, 0.2784314, 0.60784316, 1)
+reflected_light_source = 2
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+fog_enabled = true
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_8v56q"]
+_shader_parameters = {
+&"bias_distance": null,
+&"blend_sharpness": null,
+&"depth_blur": null,
+&"distant_normal_scale": null,
+&"flat_terrain_normals": null,
+&"general_uniforms": null,
+&"ground_level": null,
+&"mipmap_bias": null,
+&"mipmaps": null,
+&"private": null,
+&"region_blend": null
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_80jwe"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+backlight_enabled = true
+backlight = Color(0.5, 0.5, 0.5, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 128.0
+distance_fade_max_distance = 96.0
+metadata/terrain3d_generated_material = true
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_dppfu"]
+generated_type = 1
+height_offset = 0.5
+density = 10.0
+material_override = SubResource("StandardMaterial3D_80jwe")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvbiu"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+backlight_enabled = true
+backlight = Color(0.5, 0.5, 0.5, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 128.0
+distance_fade_max_distance = 96.0
+metadata/terrain3d_generated_material = true
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_6pdnm"]
+id = 1
+generated_type = 1
+height_offset = 0.5
+density = 10.0
+material_override = SubResource("StandardMaterial3D_tvbiu")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DTextureAsset" id="Terrain3DTextureAsset_8isyr"]
+name = "rock030_alb_ht"
+albedo_texture = ExtResource("1_tg3t2")
+normal_texture = ExtResource("2_32sbw")
+roughness = 0.333
+
+[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_32sbw"]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_dppfu"), SubResource("Terrain3DMeshAsset_6pdnm")])
+texture_list = Array[Terrain3DTextureAsset]([SubResource("Terrain3DTextureAsset_8isyr")])
+
+[node name="TestTerrain3D" type="Node3D" unique_id=1343089630]
+top_level = true
+
+[node name="Environment" type="Node3D" parent="." unique_id=1746372582]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment" unique_id=593079918]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=2125357529]
+environment = SubResource("Environment_80jwe")
+
+[node name="Terrain3D" type="Terrain3D" parent="." unique_id=895593969]
+data_directory = "res://scenes/test_levels/terrain_resource"
+material = SubResource("Terrain3DMaterial_8v56q")
+assets = SubResource("Terrain3DAssets_32sbw")
+displacement_sharpness = 0.5
+ocean_material = ExtResource("1_8v56q")
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="TestPlayerRigid" parent="." unique_id=1245615147 instance=ExtResource("4_tg3t2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.699999, 53.4, 28.9)

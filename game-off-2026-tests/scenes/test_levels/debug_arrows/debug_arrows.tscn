@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c3qotqbkaqua0"]
+
+[ext_resource type="Script" uid="uid://ckt11viokf7bw" path="res://scenes/test_levels/debug_arrows/debug_arrows.gd" id="1_j4li0"]
+
+[node name="DebugArrows" type="Node3D" unique_id=1925858452]
+script = ExtResource("1_j4li0")
+
+[node name="LiftArrow" type="MeshInstance3D" parent="." unique_id=1992306813]
+
+[node name="DragArrow" type="MeshInstance3D" parent="." unique_id=1996977883]
+
+[node name="VelocityArrow" type="MeshInstance3D" parent="." unique_id=817980773]
+
+[node name="ChordLine" type="MeshInstance3D" parent="." unique_id=854796366]
