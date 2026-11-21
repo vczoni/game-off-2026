@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://bn27rllapqrqr"]
+
+[ext_resource type="Script" uid="uid://bodqwnbwwh55l" path="res://scripts/rigidbody_tests.gd" id="3_gmdc1"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_c113o"]
+friction = 0.65
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_s0ubq"]
+points = PackedVector3Array(0, 0, 0, 2, 1.4, -0.6, 2, 1.4, 1.2, -2, 1.4, 1.2, -2, 1.4, -0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ce33"]
+transparency = 1
+albedo_color = Color(0.92156863, 0.48235294, 0, 0.30980393)
+
+[sub_resource type="BoxMesh" id="BoxMesh_c113o"]
+material = SubResource("StandardMaterial3D_4ce33")
+size = Vector3(4, 0.03, 1.8000001)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xsxvt"]
+albedo_color = Color(0.35686275, 0.22352941, 0.35686275, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_c113o"]
+material = SubResource("StandardMaterial3D_xsxvt")
+radius = 0.3
+height = 0.6
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_c113o"]
+top_radius = 0.02
+bottom_radius = 0.02
+height = 1.325
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_45ucu"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0, 1, 0.007843138, 0.14509805)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_c113o"]
+material = SubResource("StandardMaterial3D_45ucu")
+size = Vector2(1, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s0ubq"]
+albedo_color = Color(1, 0, 1, 1)
+metallic = 0.84
+roughness = 0.22
+
+[sub_resource type="SphereMesh" id="SphereMesh_c113o"]
+material = SubResource("StandardMaterial3D_s0ubq")
+radius = 0.1
+height = 0.2
+
+[node name="TestPlayerRigid2" type="RigidBody3D" unique_id=1245615147]
+collision_layer = 2
+mass = 100.0
+physics_material_override = SubResource("PhysicsMaterial_c113o")
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, 0.65, 0)
+linear_velocity = Vector3(0, 0, -20)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1790877906]
+shape = SubResource("ConvexPolygonShape3D_s0ubq")
+
+[node name="Mesh" type="Node3D" parent="." unique_id=936537247]
+
+[node name="Wing" type="MeshInstance3D" parent="Mesh" unique_id=103537408]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3999999, 0.3)
+mesh = SubResource("BoxMesh_c113o")
+
+[node name="Body" type="MeshInstance3D" parent="Mesh" unique_id=516765473]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30000007, 0)
+mesh = SubResource("CapsuleMesh_c113o")
+
+[node name="Bar" type="Node3D" parent="Mesh" unique_id=974927543]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0, -0.21, 0)
+
+[node name="Bar1" type="MeshInstance3D" parent="Mesh/Bar" unique_id=677793990]
+transform = Transform3D(0.7660444, 0.64278746, 0, -0.64278746, 0.7660444, 0, 0, 0, 1, -0.49999994, 1.0999999, 0)
+mesh = SubResource("CylinderMesh_c113o")
+
+[node name="Bar2" type="MeshInstance3D" parent="Mesh/Bar" unique_id=847641937]
+transform = Transform3D(0.76604456, -0.64278764, 0, 0.64278764, 0.76604456, 0, 0, 0, 1, 0.5, 1.1, 0)
+mesh = SubResource("CylinderMesh_c113o")
+
+[node name="Bar3" type="MeshInstance3D" parent="Mesh/Bar" unique_id=1766851928]
+transform = Transform3D(-4.371139e-08, -1.37, 0, 1, -5.98846e-08, 0, 0, 0, 1, 0, 0.59999996, 0)
+mesh = SubResource("CylinderMesh_c113o")
+
+[node name="CAM" type="Marker3D" parent="." unique_id=1179512496]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -0.15)
+
+[node name="CoG" type="Node3D" parent="." unique_id=1006434851]
+
+[node name="RangeMesh" type="MeshInstance3D" parent="CoG" unique_id=998784031]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+mesh = SubResource("PlaneMesh_c113o")
+
+[node name="Mesh" type="MeshInstance3D" parent="CoG" unique_id=1053838370]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+mesh = SubResource("SphereMesh_c113o")
+
+[node name="RigidTests" type="Node3D" parent="." unique_id=874064789 node_paths=PackedStringArray("object", "cg_ball")]
+script = ExtResource("3_gmdc1")
+object = NodePath("..")
+cg_ball = NodePath("../CoG")
+metadata/_custom_type_script = "uid://bodqwnbwwh55l"

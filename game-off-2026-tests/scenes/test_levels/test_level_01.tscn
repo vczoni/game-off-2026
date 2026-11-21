@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://5w13vs4o7tr1"]
 
 [ext_resource type="PackedScene" uid="uid://c0iwjuissxjah" path="res://scenes/test_levels/test_player_rigid/TestPlayerRigid.tscn" id="1_m6fpr"]
+[ext_resource type="Script" uid="uid://71k2tubqp60u" path="res://scripts/game_manager.gd" id="1_rreyu"]
 [ext_resource type="PackedScene" uid="uid://dr08tuvwcg0w" path="res://scenes/test_levels/hud/HUD.tscn" id="2_o58py"]
+[ext_resource type="Script" uid="uid://cao2q6mb4r73o" path="res://scripts/camera_follow.gd" id="3_i4cdh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m6fpr"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -30,6 +32,10 @@ albedo_color = Color(0.80784315, 0.105882354, 0.105882354, 1)
 
 [node name="TestLevel01" type="Node3D" unique_id=1523676533]
 
+[node name="SceneManager" type="Node" parent="." unique_id=45060431]
+script = ExtResource("1_rreyu")
+metadata/_custom_type_script = "uid://71k2tubqp60u"
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1502326054]
 environment = SubResource("Environment_i4cdh")
 
@@ -47,6 +53,16 @@ material = SubResource("StandardMaterial3D_2oxlu")
 player = NodePath("../TestPlayerRigid")
 
 [node name="TestPlayerRigid" parent="." unique_id=1245615147 instance=ExtResource("1_m6fpr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 70, 90)
-cg_trans_speed = 0.4
-initial_speed = 25.0
+transform = Transform3D(0.6380376, 0, -0.7700049, 0, 1, 0, 0.7700049, 0, 0.6380376, -40, 70, 120)
+center_of_mass = Vector3(0, 0.75, 0)
+angular_damp = 8.0
+
+[node name="CameraTarget" type="Marker3D" parent="TestPlayerRigid" unique_id=2036337740]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1581345, 1.805954)
+
+[node name="CameraFollow" type="Camera3D" parent="." unique_id=276995613 node_paths=PackedStringArray("target")]
+script = ExtResource("3_i4cdh")
+target = NodePath("../TestPlayerRigid/CameraTarget")
+camera_distance_y = 3.0
+camera_stiffness = 10.0
+metadata/_custom_type_script = "uid://cao2q6mb4r73o"

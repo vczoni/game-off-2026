@@ -3,13 +3,19 @@ extends RigidBody3D
 
 # variables
 
-@export var cg_trans_speed: float = 0.6
-@export var initial_speed: float  = 20.0
+@export_group("CoG")
+@export var min_cg_z: float = -0.9
+@export var max_cg_z: float = 0.7
+@export var cd_trans_trim: float = -0.08
+@export var cg_trans_speed: float = 2.4
+@export var cg_return_speed: float = 4.8
+
+
+@export_group("Player Velocity")
+@export var initial_speed := 20
 
 var initial_transform: Transform3D
-var initial_velocity: Vector3
 var initial_cg: Vector3
-var reset_requested := false
 
 @onready var cg_marker: MeshInstance3D = $CoG/Mesh
 @onready var cg_range: MeshInstance3D = $CoG/RangeMesh
@@ -18,16 +24,17 @@ var reset_requested := false
 
 func _ready() -> void:
 	initial_transform = global_transform
-	linear_velocity = Vector3(0, 0, -initial_speed)
-	initial_velocity = linear_velocity
+	center_of_mass.z += cd_trans_trim
 	initial_cg = center_of_mass
 	lock_rotation = false
 	cg_range.position.y = center_of_mass.y
+	var plane := cg_range.mesh as PlaneMesh
+	plane.size.y = max_cg_z - min_cg_z
+	plane.center_offset.z = (max_cg_z + min_cg_z)/2
+	linear_velocity = global_basis.z * -initial_speed
 
 
 func _physics_process(delta: float) -> void:
-	if reset_requested:
-		reset_transform()
 
 	if is_instance_valid(cg_marker):
 		cg_marker.position = center_of_mass
@@ -38,21 +45,9 @@ func _physics_process(delta: float) -> void:
 			center_of_mass.x + cg_trans_speed * delta * input_dir.x, -0.5, 0.5
 		)
 		center_of_mass.z = clamp(
-			center_of_mass.z + cg_trans_speed * delta * input_dir.y, -0.5, 0.5
+			center_of_mass.z + cg_trans_speed * delta * input_dir.y, min_cg_z, max_cg_z
 		)
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("reset_postition"):
-		reset_requested = true
-
-
-func reset_transform() -> void:
-	global_transform = initial_transform
-	linear_velocity = initial_velocity
-	center_of_mass = initial_cg
-	angular_velocity = Vector3.ZERO
-	sleeping = false
-	reset_requested = false
-
-# aux functions
+	else:
+		var peso := 1.0 - exp(-cg_return_speed * delta)
+		center_of_mass.x = lerp(center_of_mass.x, initial_cg.x, peso)
+		center_of_mass.z = lerp(center_of_mass.z, initial_cg.z, peso)

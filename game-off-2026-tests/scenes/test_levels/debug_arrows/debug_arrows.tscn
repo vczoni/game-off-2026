@@ -9,6 +9,10 @@ script = ExtResource("1_j4li0")
 
 [node name="DragArrow" type="MeshInstance3D" parent="." unique_id=1996977883]
 
+[node name="ResultantArrow" type="MeshInstance3D" parent="." unique_id=730560684]
+
+[node name="MomentArrow" type="MeshInstance3D" parent="." unique_id=1458521811]
+
 [node name="VelocityArrow" type="MeshInstance3D" parent="." unique_id=817980773]
 
-[node name="ChordLine" type="MeshInstance3D" parent="." unique_id=854796366]
+[node name="VinfArrow" type="MeshInstance3D" parent="." unique_id=1028612036]

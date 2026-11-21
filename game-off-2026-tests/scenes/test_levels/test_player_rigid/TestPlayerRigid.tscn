@@ -1,15 +1,14 @@
 [gd_scene format=3 uid="uid://c0iwjuissxjah"]
 
-[ext_resource type="Script" uid="uid://bsggrqh7eipa2" path="res://scenes/test_levels/test_player_rigid/head.gd" id="1_68frx"]
 [ext_resource type="Script" uid="uid://baqv2ttsv8wgh" path="res://scenes/test_levels/test_player_rigid/test_player_rigid.gd" id="1_nghc8"]
 [ext_resource type="Script" uid="uid://bhbq67had1vik" path="res://scripts/aerodynamics.gd" id="3_s0ubq"]
 [ext_resource type="PackedScene" uid="uid://c3qotqbkaqua0" path="res://scenes/test_levels/debug_arrows/debug_arrows.tscn" id="4_2oxlu"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_c113o"]
-friction = 0.0
+friction = 0.65
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_s0ubq"]
-points = PackedVector3Array(0, 0, 0, 2, 1.6, -0.6, 2, 1.6, 1.2, -2, 1.6, 1.2, -2, 1.6, -0.6)
+points = PackedVector3Array(0, 0, 0, 2, 1.4, -0.6, 2, 1.4, 1.2, -2, 1.4, 1.2, -2, 1.4, -0.6)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ce33"]
 transparency = 1
@@ -39,7 +38,7 @@ albedo_color = Color(0, 1, 0.007843138, 0.14509805)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_c113o"]
 material = SubResource("StandardMaterial3D_45ucu")
-size = Vector2(1, 1)
+size = Vector2(1, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s0ubq"]
 albedo_color = Color(1, 0, 1, 1)
@@ -57,9 +56,7 @@ mass = 100.0
 physics_material_override = SubResource("PhysicsMaterial_c113o")
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, 0.65, 0)
-linear_velocity = Vector3(0, 0, -20)
 script = ExtResource("1_nghc8")
-cg_trans_speed = 0.3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1790877906]
 shape = SubResource("ConvexPolygonShape3D_s0ubq")
@@ -89,23 +86,13 @@ mesh = SubResource("CylinderMesh_c113o")
 transform = Transform3D(-4.371139e-08, -1.37, 0, 1, -5.98846e-08, 0, 0, 0, 1, 0, 0.59999996, 0)
 mesh = SubResource("CylinderMesh_c113o")
 
-[node name="Head" type="Node3D" parent="." unique_id=1995126808]
-script = ExtResource("1_68frx")
-
-[node name="SpringArm3D" type="SpringArm3D" parent="Head" unique_id=818154333]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 2.2)
-spring_length = 2.0
-margin = 0.3
-
-[node name="Camera3D" type="Camera3D" parent="Head/SpringArm3D" unique_id=1326923036]
-transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 0.4000001, -0.099999905)
-
 [node name="CAM" type="Marker3D" parent="." unique_id=1179512496]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -0.15)
 
-[node name="DebugArrows" parent="CAM" unique_id=1925858452 node_paths=PackedStringArray("aero") instance=ExtResource("4_2oxlu")]
+[node name="DebugArrows" parent="CAM" unique_id=1925858452 node_paths=PackedStringArray("aero", "object") instance=ExtResource("4_2oxlu")]
 aero = NodePath("../../Aerodynamics")
-arrow_scale = 0.004
+object = NodePath("../..")
+arrow_scale = 0.002
 
 [node name="CoG" type="Node3D" parent="." unique_id=1006434851]
 
@@ -117,10 +104,10 @@ mesh = SubResource("PlaneMesh_c113o")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 mesh = SubResource("SphereMesh_c113o")
 
-[node name="Aerodynamics" type="Node" parent="." unique_id=2113953821 node_paths=PackedStringArray("object", "aerodynamic_center")]
+[node name="Aerodynamics" type="Node3D" parent="." unique_id=1584199721 node_paths=PackedStringArray("object", "aerodynamic_center")]
 script = ExtResource("3_s0ubq")
 object = NodePath("..")
 wing_area = 7.2
-chord = 1.8
 aerodynamic_center = NodePath("../CAM")
+chord = 1.8
 metadata/_custom_type_script = "uid://bhbq67had1vik"

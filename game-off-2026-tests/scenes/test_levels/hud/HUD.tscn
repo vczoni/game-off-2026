@@ -9,20 +9,54 @@ script = ExtResource("1_aku4i")
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=419975894]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1546857537]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=419975894]
 layout_mode = 2
 
-[node name="Speed" type="Label" parent="PanelContainer/VBoxContainer" unique_id=480317120]
+[node name="Distance" type="Label" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=1940017496]
 layout_mode = 2
 
-[node name="Forces" type="Label" parent="PanelContainer/VBoxContainer" unique_id=371561216]
+[node name="Speed" type="Label" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=480317120]
 layout_mode = 2
 
-[node name="Torque" type="Label" parent="PanelContainer/VBoxContainer" unique_id=431149986]
+[node name="Weight" type="Label" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=295615471]
 layout_mode = 2
 
-[node name="Weight" type="Label" parent="PanelContainer/VBoxContainer" unique_id=295615471]
+[node name="CG" type="Label" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=174347802]
 layout_mode = 2
 
-[node name="CG" type="Label" parent="PanelContainer/VBoxContainer" unique_id=174347802]
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=710470212]
+layout_mode = 2
+
+[node name="AR" type="Label" parent="PanelContainer/VBoxContainer/VBoxContainer2" unique_id=83708421]
+layout_mode = 2
+
+[node name="Incidence" type="Label" parent="PanelContainer/VBoxContainer/VBoxContainer2" unique_id=1587731414]
+layout_mode = 2
+
+[node name="AoA" type="Label" parent="PanelContainer/VBoxContainer/VBoxContainer2" unique_id=1955571886]
+layout_mode = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1852653044]
+layout_mode = 2
+
+[node name="Cla" type="Label" parent="PanelContainer/VBoxContainer/VBoxContainer3" unique_id=864290514]
+layout_mode = 2
+
+[node name="Coeffs" type="Label" parent="PanelContainer/VBoxContainer/VBoxContainer3" unique_id=660925071]
+layout_mode = 2
+
+[node name="Cd" type="Label" parent="PanelContainer/VBoxContainer/VBoxContainer3" unique_id=1627006076]
+layout_mode = 2
+
+[node name="LD" type="Label" parent="PanelContainer/VBoxContainer/VBoxContainer3" unique_id=329830715]
+layout_mode = 2
+
+[node name="Forces" type="Label" parent="PanelContainer/VBoxContainer/VBoxContainer3" unique_id=371561216]
+layout_mode = 2
+
+[node name="Torque" type="Label" parent="PanelContainer/VBoxContainer/VBoxContainer3" unique_id=431149986]
 layout_mode = 2

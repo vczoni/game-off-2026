@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://1ob82jgepq0g"]
+
+[ext_resource type="Script" uid="uid://rves887tv54p" path="res://scripts/rotation_tests.gd" id="2_4tube"]
+[ext_resource type="PackedScene" uid="uid://dxpwgj8w8xb0i" path="res://scenes/test_levels/test_player_rigid/TestPlayerRigid3.tscn" id="2_53huo"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m6fpr"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_o58py"]
+sky_material = SubResource("ProceduralSkyMaterial_m6fpr")
+
+[sub_resource type="Environment" id="Environment_i4cdh"]
+background_mode = 2
+sky = SubResource("Sky_o58py")
+ambient_light_color = Color(0.31764707, 1, 0.87058824, 0.7137255)
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.27058825, 0.39607844, 0.39607844, 1)
+fog_light_energy = 0.51
+fog_sun_scatter = 0.52
+fog_density = 0.0615
+fog_aerial_perspective = 0.154
+fog_sky_affect = 0.361
+fog_height_density = 1.3196
+volumetric_fog_albedo = Color(0.5647059, 1, 0.5372549, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2oxlu"]
+albedo_color = Color(0.80784315, 0.105882354, 0.105882354, 1)
+
+[node name="TestLevel02" type="Node3D" unique_id=1523676533]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1502326054]
+environment = SubResource("Environment_i4cdh")
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=971338076]
+transform = Transform3D(0.5620834, 0.5693247, -0.59994304, 0, 0.7253744, 0.68835455, 0.82708055, -0.38691267, 0.40772092, 0, 24.1, -35.5)
+shadow_enabled = true
+
+[node name="Floor" type="CSGBox3D" parent="." unique_id=1908808550]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, -70)
+use_collision = true
+size = Vector3(14.6, 1, 144.6)
+material = SubResource("StandardMaterial3D_2oxlu")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=637802938]
+transform = Transform3D(0.60032463, -0.30565804, 0.7390423, -3.3327936e-09, 0.92408425, 0.3821889, -0.79975647, -0.22943741, 0.5547505, 2.9682422, 3.9950597, -1.2848169)
+
+[node name="TestPlayerRigid3" parent="." unique_id=220469196 instance=ExtResource("2_53huo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -3.4519546)
+
+[node name="RotationTester" type="Node3D" parent="." unique_id=1717752625 node_paths=PackedStringArray("object", "label_normal_mode", "label_x", "label_y", "label_z", "label_rot", "label_basis")]
+script = ExtResource("2_4tube")
+object = NodePath("../TestPlayerRigid3")
+label_normal_mode = NodePath("../CanvasLayer/MarginContainer/VBoxContainer/GlobalMode")
+label_x = NodePath("../CanvasLayer/MarginContainer/VBoxContainer/X")
+label_y = NodePath("../CanvasLayer/MarginContainer/VBoxContainer/Y")
+label_z = NodePath("../CanvasLayer/MarginContainer/VBoxContainer/Z")
+label_rot = NodePath("../CanvasLayer/MarginContainer/VBoxContainer/Rotation")
+label_basis = NodePath("../CanvasLayer/MarginContainer/VBoxContainer/Basis")
+metadata/_custom_type_script = "uid://rves887tv54p"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=926631525]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=820940030]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 19
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer" unique_id=479810713]
+layout_mode = 2
+
+[node name="GlobalMode" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer" unique_id=1207312900]
+layout_mode = 2
+text = "RX:"
+
+[node name="X" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer" unique_id=2000855585]
+layout_mode = 2
+text = "RX:"
+
+[node name="Y" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer" unique_id=865024026]
+layout_mode = 2
+text = "RY:"
+
+[node name="Z" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer" unique_id=74623733]
+layout_mode = 2
+text = "RZ:"
+
+[node name="Rotation" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer" unique_id=2049370883]
+layout_mode = 2
+
+[node name="Basis" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer" unique_id=1620370747]
+layout_mode = 2

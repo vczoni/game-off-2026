@@ -3,7 +3,7 @@
 [ext_resource type="Material" uid="uid://cgk4glwmc4vk2" path="res://addons/terrain_3d/extras/shaders/M_ocean.tres" id="1_8v56q"]
 [ext_resource type="Texture2D" uid="uid://bhjl1vbycd5oe" path="res://scenes/test_levels/terrain_resource/rock030_alb_ht.dds" id="1_tg3t2"]
 [ext_resource type="Texture2D" uid="uid://cx87kuccdguca" path="res://scenes/test_levels/terrain_resource/rock030_nrm_rgh.png" id="2_32sbw"]
-[ext_resource type="PackedScene" uid="uid://c0iwjuissxjah" path="res://scenes/test_levels/test_player_rigid/TestPlayerRigid.tscn" id="4_tg3t2"]
+[ext_resource type="PackedScene" uid="uid://bn27rllapqrqr" path="res://scenes/test_levels/test_player_rigid/TestPlayerRigid2.tscn" id="4_tg3t2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tg3t2"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -111,5 +111,11 @@ ocean_material = ExtResource("1_8v56q")
 top_level = true
 metadata/_edit_lock_ = true
 
-[node name="TestPlayerRigid" parent="." unique_id=1245615147 instance=ExtResource("4_tg3t2")]
-transform = Transform3D(-0.86602545, 0, -0.5, 0, 1, 0, 0.5, 0, -0.86602545, 26.399998, 56.7, 31.999998)
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1248809563]
+transform = Transform3D(0.5489525, -0.3395229, 0.7637901, 0, 0.9137846, 0.40619904, -0.8358535, -0.22298399, 0.50162435, 36.965336, 66.44939, 41.206985)
+
+[node name="TestPlayerRigid2" parent="." unique_id=1245615147 instance=ExtResource("4_tg3t2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.15367, 64.34761, 39.330364)
+gravity_scale = 0.0
+inertia = Vector3(0, 0.65, 0)
+linear_velocity = Vector3(0, 0, 0)

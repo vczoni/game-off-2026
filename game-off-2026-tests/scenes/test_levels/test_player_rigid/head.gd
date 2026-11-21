@@ -1,12 +1,15 @@
 extends Node3D
 
 @export var mouse_sensitivity := 0.002
+@export var camera: Camera3D
 
 var pitch := 0.0
 
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	camera.process_mode = Node.PROCESS_MODE_ALWAYS
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 
 func _physics_process(_delta: float) -> void:
@@ -24,3 +27,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+	if event.is_action_pressed("pause"):
+		get_tree().paused = !get_tree().paused
