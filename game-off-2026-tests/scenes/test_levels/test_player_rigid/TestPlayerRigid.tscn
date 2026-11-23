@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c0iwjuissxjah"]
 
 [ext_resource type="Script" uid="uid://baqv2ttsv8wgh" path="res://scenes/test_levels/test_player_rigid/test_player_rigid.gd" id="1_nghc8"]
+[ext_resource type="Texture2D" uid="uid://dch1qv5mfmtsw" path="res://assets/center-of-gravity-icon.png" id="3_2oxlu"]
 [ext_resource type="Script" uid="uid://bhbq67had1vik" path="res://scripts/aerodynamics.gd" id="3_s0ubq"]
 [ext_resource type="PackedScene" uid="uid://c3qotqbkaqua0" path="res://scenes/test_levels/debug_arrows/debug_arrows.tscn" id="4_2oxlu"]
 
@@ -39,16 +40,6 @@ albedo_color = Color(0, 1, 0.007843138, 0.14509805)
 [sub_resource type="PlaneMesh" id="PlaneMesh_c113o"]
 material = SubResource("StandardMaterial3D_45ucu")
 size = Vector2(1, 2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s0ubq"]
-albedo_color = Color(1, 0, 1, 1)
-metallic = 0.84
-roughness = 0.22
-
-[sub_resource type="SphereMesh" id="SphereMesh_c113o"]
-material = SubResource("StandardMaterial3D_s0ubq")
-radius = 0.1
-height = 0.2
 
 [node name="TestPlayerRigid" type="RigidBody3D" unique_id=1245615147]
 collision_layer = 2
@@ -100,9 +91,13 @@ arrow_scale = 0.002
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 mesh = SubResource("PlaneMesh_c113o")
 
-[node name="Mesh" type="MeshInstance3D" parent="CoG" unique_id=1053838370]
+[node name="Mesh" type="Node3D" parent="CoG" unique_id=2118300054]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
-mesh = SubResource("SphereMesh_c113o")
+
+[node name="Sprite2D" type="Sprite3D" parent="CoG/Mesh" unique_id=1778229707]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, 0, 0)
+billboard = 1
+texture = ExtResource("3_2oxlu")
 
 [node name="Aerodynamics" type="Node3D" parent="." unique_id=1584199721 node_paths=PackedStringArray("object", "aerodynamic_center")]
 script = ExtResource("3_s0ubq")

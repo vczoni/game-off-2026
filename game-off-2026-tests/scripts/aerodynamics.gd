@@ -48,7 +48,7 @@ var amin: float:
 
 var vinf_local: Vector3:
 	get:
-		var v: Vector3 = object.linear_velocity * global_basis
+		var v: Vector3 = global_basis.inverse() * object.linear_velocity
 		return Vector3(0, v.y, v.z)
 
 var incidence: float:
@@ -70,13 +70,13 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	calc_coeffs()
 	calc_aerodynamic_forces()
-	object.apply_force(Lvector + Dvector, aerodynamic_center.position)
+	object.apply_force(Lvector + Dvector, object.global_basis * aerodynamic_center.position)
 	object.apply_torque(Mvector)
 
 
 func calc_coeffs() -> void:
 	# aerodynamic velocity
-	vinf = vinf_local * global_basis.inverse()
+	vinf = global_basis * vinf_local
 	# angle of attack
 	var vel = object.linear_velocity.normalized()
 	var forward = (global_basis * Vector3.FORWARD).normalized()
@@ -137,8 +137,7 @@ func calc_aerodynamic_forces() -> void:
 	M = qS * CM * chord
 	
 	Dvector = D * -vinf.normalized()
-	var base = global_basis.orthonormalized()
-	var Dvector_local = base.inverse() * Dvector
+	var Dvector_local = global_basis.inverse() * Dvector
 	var Lvector_local = Dvector_local.rotated(Vector3.RIGHT, -PI/2.0)
-	Lvector = L * (base * Lvector_local).normalized()
+	Lvector = L * (global_basis * Lvector_local).normalized()
 	Mvector = global_basis.x * M

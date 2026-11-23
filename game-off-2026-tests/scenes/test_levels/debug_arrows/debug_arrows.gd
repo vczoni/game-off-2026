@@ -52,19 +52,12 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	var lift_vector := aero.Lvector
-	var drag_vector := aero.Dvector
-	var resultant_vector := aero.Dvector + aero.Lvector
-	var moment_vector := aero.Mvector * 3
-	var velocity_vector := object.linear_velocity * 10
-	var vinf_vector := aero.vinf * 10
-	
-	draw_arrow(lift_vector, lift_mesh, lift_material)
-	draw_arrow(drag_vector, drag_mesh, drag_material)
-	draw_arrow(resultant_vector, resultant_mesh, resultant_material)
-	draw_arrow(moment_vector, moment_mesh, moment_material)
-	draw_arrow(velocity_vector, velocity_mesh, velocity_material)
-	draw_arrow(vinf_vector, vinf_mesh, vinf_material)
+	draw_arrow(aero.Lvector, lift_mesh, lift_material)
+	draw_arrow(aero.Dvector, drag_mesh, drag_material)
+	draw_arrow(aero.Dvector + aero.Lvector, resultant_mesh, resultant_material)
+	draw_arrow(aero.Mvector*3, moment_mesh, moment_material)
+	draw_arrow(object.linear_velocity*15, velocity_mesh, velocity_material)
+	draw_arrow(aero.vinf*15, vinf_mesh, vinf_material)
 
 
 func draw_arrow(vector: Vector3, mesh: ImmediateMesh, material: StandardMaterial3D) -> void:
@@ -73,7 +66,7 @@ func draw_arrow(vector: Vector3, mesh: ImmediateMesh, material: StandardMaterial
 	if vector.length_squared() < 0.0001:
 		return
 
-	var arrow_tip: Vector3 = vector * arrow_scale * global_basis
+	var arrow_tip: Vector3 = global_basis.inverse() * vector * arrow_scale
 
 	mesh.surface_begin(Mesh.PRIMITIVE_LINES, material)
 	mesh.surface_add_vertex(Vector3.ZERO)

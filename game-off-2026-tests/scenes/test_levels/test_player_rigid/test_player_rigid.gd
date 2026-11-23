@@ -17,7 +17,7 @@ extends RigidBody3D
 var initial_transform: Transform3D
 var initial_cg: Vector3
 
-@onready var cg_marker: MeshInstance3D = $CoG/Mesh
+@onready var cg_marker: Node3D = $CoG/Mesh
 @onready var cg_range: MeshInstance3D = $CoG/RangeMesh
 
 # main functions
