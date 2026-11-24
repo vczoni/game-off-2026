@@ -22,13 +22,13 @@ var initial_xz: Vector2
 
 func _ready() -> void:
 	aero = player.get_node("Aerodynamics")
-	initial_xz = Vector2(player.position.x, player.position.z)
+	initial_xz = Vector2(player.global_position.x, player.global_position.z)
 
 
 func _process(_delta: float) -> void:
 	# container 1
-	var distance_vector := Vector2(player.position.x, player.position.z) - initial_xz
-	distance_label.text = "distance: %.2f m" % distance_vector.length()
+	var distance_vector := Vector2(player.global_position.x, player.global_position.z) - initial_xz
+	distance_label.text = "distance: %d m" % distance_vector.length()
 	speed_label.text = "V: %.2f m/s" % player.linear_velocity.length()
 	var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 	var weight: float = player.mass * gravity * player.gravity_scale

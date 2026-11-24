@@ -8,6 +8,11 @@ extends Node3D
 @export var aerodynamic_center: Marker3D
 @export var chord: float
 
+@export_category("Surface Control")
+@export var yaw_intensity: float = 500.0
+@export var pitch_back_intensity: float = 200.0
+@export var pitch_forward_intensity: float = 10.0
+
 @export_category("Coefficients")
 @export var cl0: float = 0.15
 @export var clmax: float = 1.2
@@ -70,9 +75,31 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	calc_coeffs()
 	calc_aerodynamic_forces()
+	apply_flight_forces()
+	apply_control_forces()
+
+
+# apply forces
+
+func apply_flight_forces() -> void:
 	object.apply_force(Lvector + Dvector, object.global_basis * aerodynamic_center.position)
 	object.apply_torque(Mvector)
 
+
+func apply_control_forces() -> void:
+	var input_axis: Vector2 = Input.get_vector(
+		"move_left", "move_right", "move_forward", "move_back"
+	)
+	object.apply_torque(-global_basis.y * input_axis.x * yaw_intensity)
+	var pitch_intensity: float
+	if input_axis.y < 0:
+		pitch_intensity = pitch_forward_intensity
+	else:
+		pitch_intensity = pitch_back_intensity
+	object.apply_torque(global_basis.x * input_axis.y * pitch_intensity)
+
+
+# coefficient calculation
 
 func calc_coeffs() -> void:
 	# aerodynamic velocity
@@ -99,8 +126,6 @@ func calc_coeffs() -> void:
 		CD = cd + CDi
 		# CM
 		CM = cm
-		if object.center_of_mass.z > 0.2:
-			CM += object.center_of_mass.z/20
 
 
 func calculate_cl() -> void:

@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://co6nrb4ua7jr6"]
+
+[ext_resource type="PackedScene" uid="uid://p0erdy6g7yfy" path="res://assets/glider/hang_glider_-_low_poly/scene.gltf" id="1_8afob"]
+[ext_resource type="Script" uid="uid://c2x0xiq2ajvgk" path="res://scenes/player/player.gd" id="1_gmlin"]
+[ext_resource type="Script" uid="uid://b8dk4b3c1wp3k" path="res://scripts/aerodynamics.gd" id="3_lvxji"]
+[ext_resource type="Texture2D" uid="uid://rsl61srw4680" path="res://assets/center-of-gravity-icon.png" id="3_p47bc"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_c113o"]
+points = PackedVector3Array(0.45, 0, 0.65, 0.45, 0, -0.65, -1.6, 1.23, -3.43, -1, 1.23, -3.43, 1.62, 1.23, 0, -1, 1.23, 3.43, -1.6, 1.23, 3.43, -1.615, 0.435, 0, -1.655, 1.23, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_45ucu"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0.58431375, 0.58431375, 0.58431375, 0.28627452)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_c113o"]
+material = SubResource("StandardMaterial3D_45ucu")
+
+[node name="Player" type="RigidBody3D" unique_id=1441651900]
+collision_layer = 2
+mass = 100.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, 0.7, 0)
+angular_damp = 8.0
+script = ExtResource("1_gmlin")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1625455433]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_c113o")
+
+[node name="Mesh" type="Node3D" parent="." unique_id=1478383092]
+
+[node name="Glider" parent="Mesh" unique_id=1465219524 instance=ExtResource("1_8afob")]
+transform = Transform3D(-2.1855695e-09, 0, 0.05, 0, 0.05, 0, -0.05, 0, -2.1855695e-09, 0, 0, 0)
+
+[node name="CoG" type="Node3D" parent="." unique_id=498256526]
+
+[node name="RangeMesh" type="MeshInstance3D" parent="CoG" unique_id=232508167]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+mesh = SubResource("PlaneMesh_c113o")
+
+[node name="Mesh" type="Sprite3D" parent="CoG" unique_id=1090139616]
+transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, 0.7, 0)
+billboard = 1
+texture = ExtResource("3_p47bc")
+
+[node name="CAM" type="Marker3D" parent="." unique_id=1441455189]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+
+[node name="Aerodynamics" type="Node3D" parent="." unique_id=537515706 node_paths=PackedStringArray("object", "aerodynamic_center")]
+script = ExtResource("3_lvxji")
+object = NodePath("..")
+wing_area = 7.6
+wing_incidence = 3.0
+aerodynamic_center = NodePath("../CAM")
+chord = 1.0
+metadata/_custom_type_script = "uid://b8dk4b3c1wp3k"

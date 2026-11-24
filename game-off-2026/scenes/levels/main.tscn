@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://c46fg58kig25x"]
+
+[ext_resource type="PackedScene" uid="uid://c0igbc1ddmj2e" path="res://scenes/menu/title_screen.tscn" id="1_72ix8"]
+[ext_resource type="PackedScene" uid="uid://q5rn21hk8ieh" path="res://scenes/levels/level_01.tscn" id="1_j4d2a"]
+[ext_resource type="Script" uid="uid://dv0k2g1h24kng" path="res://scenes/levels/main.gd" id="1_u81e1"]
+[ext_resource type="PackedScene" uid="uid://co6nrb4ua7jr6" path="res://scenes/player/player.tscn" id="2_u81e1"]
+[ext_resource type="Script" uid="uid://doxoxqdpl32be" path="res://scripts/camera_follow.gd" id="3_b6bv0"]
+[ext_resource type="Script" uid="uid://cksc1tx4nucst" path="res://scenes/levels/fade_to_black.gd" id="6_b6bv0"]
+
+[node name="Main" type="Node3D" unique_id=1361758512]
+script = ExtResource("1_u81e1")
+game_state = 1
+
+[node name="Level01" parent="." unique_id=1607144079 instance=ExtResource("1_j4d2a")]
+
+[node name="Player" parent="Level01" unique_id=1441651900 instance=ExtResource("2_u81e1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 70, 300)
+
+[node name="CameraFollow" type="Camera3D" parent="Level01" unique_id=1306340326 node_paths=PackedStringArray("target")]
+process_mode = 3
+script = ExtResource("3_b6bv0")
+target = NodePath("../Player")
+metadata/_custom_type_script = "uid://doxoxqdpl32be"
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=572803913]
+
+[node name="TitleScreen" parent="UI" unique_id=549713831 instance=ExtResource("1_72ix8")]
+
+[node name="FadeToBlack" type="ColorRect" parent="UI" unique_id=146952583]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("6_b6bv0")

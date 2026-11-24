@@ -56,6 +56,7 @@ player = NodePath("../TestPlayerRigid")
 transform = Transform3D(0.6380376, 0, -0.7700049, 0, 1, 0, 0.7700049, 0, 0.6380376, -40, 70, 120)
 center_of_mass = Vector3(0, 0.75, 0)
 angular_damp = 8.0
+initial_speed = 30
 
 [node name="CameraTarget" type="Marker3D" parent="TestPlayerRigid" unique_id=2036337740]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1581345, 1.805954)
@@ -63,6 +64,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1581345, 1.805954)
 [node name="CameraFollow" type="Camera3D" parent="." unique_id=276995613 node_paths=PackedStringArray("target")]
 script = ExtResource("3_i4cdh")
 target = NodePath("../TestPlayerRigid/CameraTarget")
-camera_distance_y = 3.0
-camera_stiffness = 10.0
 metadata/_custom_type_script = "uid://cao2q6mb4r73o"

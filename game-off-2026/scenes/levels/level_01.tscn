@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://q5rn21hk8ieh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m802k"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_i2aat"]
+sky_material = SubResource("ProceduralSkyMaterial_m802k")
+
+[sub_resource type="Environment" id="Environment_2djvx"]
+background_mode = 2
+sky = SubResource("Sky_i2aat")
+glow_enabled = true
+
+[node name="Level01" type="Node3D" unique_id=1607144079]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1364744447]
+environment = SubResource("Environment_2djvx")
+
+[node name="LandingSpots" type="Node3D" parent="." unique_id=440149928]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="LandingSpots" unique_id=152049812]
+use_collision = true
+size = Vector3(5, 0.2, 25)

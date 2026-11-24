@@ -3,9 +3,9 @@ extends Camera3D
 
 
 @export var target: Node3D
-@export var camera_distance_y: float = 5.0
+@export var camera_distance_y: float = 3.0
 @export var camera_distance_z: float = 5.0
-@export var camera_stiffness: float = 9.0
+@export var camera_stiffness: float = 10.0
 
 
 func _ready() -> void:
