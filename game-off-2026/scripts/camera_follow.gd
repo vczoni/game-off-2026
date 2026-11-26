@@ -11,13 +11,14 @@ extends Camera3D
 enum CameraState {
 	FOLLOWING,
 	ORBITING,
+	CRASHED,
 }
 
 var state: CameraState
 
 
 func _ready() -> void:
-	global_position = get_new_position()
+	reset_position()
 	set_to_orbit()
 
 
@@ -26,6 +27,12 @@ func _physics_process(delta: float) -> void:
 		follow(delta)
 	elif state == CameraState.ORBITING:
 		orbit(delta)
+	elif state == CameraState.CRASHED:
+		crashed()
+
+
+func reset_position() -> void:
+	global_position = get_new_position()
 
 
 func set_to_orbit() -> void:
@@ -34,6 +41,10 @@ func set_to_orbit() -> void:
 
 func set_to_follow() -> void:
 	state = CameraState.FOLLOWING
+
+
+func set_to_crashed() -> void:
+	state = CameraState.CRASHED
 
 
 func follow(delta: float) -> void:
@@ -47,6 +58,10 @@ func orbit(delta: float) -> void:
 	offset = offset.rotated(Vector3.UP, orbit_speed * delta)
 
 	global_position = target.global_position + offset
+	look_at(target.global_position, Vector3.UP)
+
+
+func crashed() -> void:
 	look_at(target.global_position, Vector3.UP)
 
 

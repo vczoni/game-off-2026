@@ -24,7 +24,7 @@ func run() -> void:
 	await tween.finished
 	await get_tree().process_frame
 
-	GameManager.show_title()
+	GameManager.change_to_main()
 
 
 func hide_screens() -> void:

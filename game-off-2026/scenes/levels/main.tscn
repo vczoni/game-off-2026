@@ -1,11 +1,15 @@
 [gd_scene format=3 uid="uid://c46fg58kig25x"]
 
-[ext_resource type="PackedScene" uid="uid://c0igbc1ddmj2e" path="res://scenes/menu/title_screen.tscn" id="1_72ix8"]
+[ext_resource type="PackedScene" uid="uid://c0igbc1ddmj2e" path="res://scenes/ui/title_screen.tscn" id="1_72ix8"]
 [ext_resource type="PackedScene" uid="uid://q5rn21hk8ieh" path="res://scenes/levels/level_01.tscn" id="1_j4d2a"]
 [ext_resource type="Script" uid="uid://dv0k2g1h24kng" path="res://scenes/levels/main.gd" id="1_u81e1"]
 [ext_resource type="PackedScene" uid="uid://co6nrb4ua7jr6" path="res://scenes/player/player.tscn" id="2_u81e1"]
 [ext_resource type="Script" uid="uid://doxoxqdpl32be" path="res://scripts/camera_follow.gd" id="3_b6bv0"]
+[ext_resource type="PackedScene" uid="uid://dnxw64l7fwc58" path="res://scenes/ui/hud.tscn" id="5_vkq25"]
 [ext_resource type="Script" uid="uid://cksc1tx4nucst" path="res://scenes/levels/fade_to_black.gd" id="6_b6bv0"]
+[ext_resource type="PackedScene" uid="uid://djrk2waipoqvb" path="res://scenes/ui/pause_screen.tscn" id="6_ubwgw"]
+[ext_resource type="PackedScene" uid="uid://xdmilwqnkjmu" path="res://scenes/ui/crashed_screen.tscn" id="8_7lrji"]
+[ext_resource type="PackedScene" uid="uid://dalxdi08w3s4p" path="res://scenes/ui/landed_screen.tscn" id="9_rssyh"]
 
 [node name="Main" type="Node3D" unique_id=1361758512]
 script = ExtResource("1_u81e1")
@@ -14,7 +18,7 @@ game_state = 1
 [node name="Level01" parent="." unique_id=1607144079 instance=ExtResource("1_j4d2a")]
 
 [node name="Player" parent="Level01" unique_id=1441651900 instance=ExtResource("2_u81e1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 70, 300)
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.9999999, 0, 70, 300)
 
 [node name="CameraFollow" type="Camera3D" parent="Level01" unique_id=1306340326 node_paths=PackedStringArray("target")]
 process_mode = 3
@@ -24,7 +28,15 @@ metadata/_custom_type_script = "uid://doxoxqdpl32be"
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=572803913]
 
+[node name="HUD" parent="UI" unique_id=577149172 instance=ExtResource("5_vkq25")]
+
 [node name="TitleScreen" parent="UI" unique_id=549713831 instance=ExtResource("1_72ix8")]
+
+[node name="PauseScreen" parent="UI" unique_id=563543326 instance=ExtResource("6_ubwgw")]
+
+[node name="CrashedScreen" parent="UI" unique_id=1319371217 instance=ExtResource("8_7lrji")]
+
+[node name="LandedScreen" parent="UI" unique_id=863398750 instance=ExtResource("9_rssyh")]
 
 [node name="FadeToBlack" type="ColorRect" parent="UI" unique_id=146952583]
 process_mode = 3

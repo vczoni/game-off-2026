@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://dalxdi08w3s4p"]
+
+[ext_resource type="Script" uid="uid://biva6h4y34s5k" path="res://scenes/ui/play_button.gd" id="1_17rfk"]
+
+[node name="LandedScreen" type="CanvasLayer" unique_id=549713831]
+process_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=410759209]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=7996736]
+layout_mode = 2
+theme_override_constants/separation = 180
+
+[node name="TitleContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1678398451]
+layout_mode = 2
+theme_override_constants/margin_top = 163
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/TitleContainer" unique_id=1296904162]
+process_mode = 3
+layout_mode = 2
+text = "LANDED!"
+horizontal_alignment = 1
+
+[node name="ButtonContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=395813795]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ButtonContainer" unique_id=1110170357]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ContinueButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer/VBoxContainer" unique_id=337770066]
+layout_mode = 2
+text = "CONTINUE"
+alignment = 0
+
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer/VBoxContainer" unique_id=371801331]
+layout_mode = 2
+text = "PLAY AGAIN"
+alignment = 0
+script = ExtResource("1_17rfk")
+
+[node name="ScoreboardButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer/VBoxContainer" unique_id=577644178]
+layout_mode = 2
+text = "SCOREBOARD"
+alignment = 0
+
+[node name="MainMenuButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer/VBoxContainer" unique_id=452598868]
+layout_mode = 2
+text = "MAIN MENU"
+alignment = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/ButtonContainer" unique_id=1976546231]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/ButtonContainer/MarginContainer" unique_id=563149726]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 25
+columns = 2
+
+[node name="Score" type="Label" parent="MarginContainer/VBoxContainer/ButtonContainer/MarginContainer/GridContainer" unique_id=1526548490]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7708395, 0.77083945, 0.77083945, 1)
+theme_override_font_sizes/font_size = 32
+text = "SCORE:"
+horizontal_alignment = 2
+
+[node name="ScoreValue" type="Label" parent="MarginContainer/VBoxContainer/ButtonContainer/MarginContainer/GridContainer" unique_id=1028333119]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "6498"
+horizontal_alignment = 1
+
+[node name="BestScore" type="Label" parent="MarginContainer/VBoxContainer/ButtonContainer/MarginContainer/GridContainer" unique_id=1820125379]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.79607844, 1)
+theme_override_font_sizes/font_size = 32
+text = "BEST:"
+horizontal_alignment = 2
+
+[node name="BestScoreValue" type="Label" parent="MarginContainer/VBoxContainer/ButtonContainer/MarginContainer/GridContainer" unique_id=231825531]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.37254903, 1)
+theme_override_font_sizes/font_size = 32
+text = "10862"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonContainer/VBoxContainer/PlayButton" to="MarginContainer/VBoxContainer/ButtonContainer/VBoxContainer/PlayButton" method="_on_pressed"]
