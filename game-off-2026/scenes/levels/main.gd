@@ -12,18 +12,13 @@ extends Node3D
 @onready var landed_screen: CanvasLayer = $UI/LandedScreen
 @onready var fade_to_black: ColorRect = $UI/FadeToBlack
 
+var current_level: int
+var n_levels: int = 1
 var _initial_player_position: Vector3
 var _last_player_position: Vector3
 var v_player: float
 var v_max: float
 var distance: float
-var landing_bonus: float = 1.0
-
-# best values
-var best_max_speed: float = 0.0
-var best_distance: float = 0.0
-var best_landing_bonus: float = 1.0
-var best_score: int = 0
 
 var altitude: float:
 	get:
@@ -31,7 +26,7 @@ var altitude: float:
 
 var score: int:
 	get:
-		return int(distance * v_max * landing_bonus)
+		return int(distance * v_max * player.landing_sensors.landing_bonus)
 
 
 # functions
@@ -58,7 +53,9 @@ func _process(_delta: float) -> void:
 func main_level_setup() -> void:
 	hide_ui()
 	_initial_player_position = player.global_position
-	reset_score()
+	GameScores.reset_best_scores(n_levels)
+	reset_score_aux_vars()
+	set_current_level(1)
 	update_hud_best_values()
 
 
@@ -73,10 +70,10 @@ func hide_ui() -> void:
 func reset_level() -> void:
 	player.reset_body()
 	camera_follow.reset_position()
-	reset_score()
+	reset_score_aux_vars()
 
 
-func reset_score() -> void:
+func reset_score_aux_vars() -> void:
 	_last_player_position = _initial_player_position
 	v_max = 0
 	v_player = 0
@@ -104,10 +101,10 @@ func update_hud() -> void:
 
 
 func update_hud_best_values() -> void:
-	game_hud.update_best_max_speed(int(best_max_speed))
-	game_hud.update_best_distance(int(best_distance))
-	game_hud.update_best_landing_bonus(best_landing_bonus)
-	game_hud.update_best_score(best_score)
+	game_hud.update_best_max_speed(current_level)
+	game_hud.update_best_distance(current_level)
+	game_hud.update_best_landing_bonus(current_level)
+	game_hud.update_best_score(current_level)
 
 
 func set_title_screen() -> void:
@@ -124,6 +121,7 @@ func start_game() -> void:
 
 func pause_game() -> void:
 	hide_ui()
+	game_hud.show()
 	pause_screen.show()
 	camera_follow.set_to_orbit()
 
@@ -144,7 +142,23 @@ func level_complete_routine() -> void:
 	hide_ui()
 	landed_screen.show()
 	camera_follow.set_to_orbit()
+	register_best_scores()
+	landed_screen.write_scores(score, GameScores.get_best_score(current_level))
 
 
-func calculate_landing_bonus() -> float:
-	return 1.0
+func register_best_scores() -> void:
+	GameScores.check_and_set_best_distance(current_level, distance)
+	GameScores.check_and_set_best_topspeed(current_level, v_max)
+	GameScores.check_and_set_best_landing_bonus(current_level, player.landing_sensors.landing_bonus)
+	GameScores.check_and_set_best_score(current_level, score)
+	update_hud_best_values()
+
+
+# level managemnent
+
+func set_current_level(level_id: int) -> void:
+	current_level = level_id
+
+
+func next_level() -> void:
+	pass

@@ -2,6 +2,13 @@
 
 [ext_resource type="Script" uid="uid://wngy0dey17kv" path="res://scenes/ui/hud.gd" id="1_0mwgc"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_45ucu"]
+bg_color = Color(0.19607843, 0.19607843, 0.19607843, 0.5294118)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+
 [node name="HUD" type="CanvasLayer" unique_id=577149172]
 script = ExtResource("1_0mwgc")
 
@@ -23,16 +30,23 @@ layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 423
 
-[node name="CommonMetrics" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1823299862]
+[node name="PanelCommon" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=1943244695]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_45ucu")
+
+[node name="CommonMetrics" type="VBoxContainer" parent="MarginContainer/VBoxContainer/PanelCommon" unique_id=1823299862]
+layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_constants/separation = 6
 
-[node name="Speed" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CommonMetrics" unique_id=1578005706]
+[node name="Speed" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelCommon/CommonMetrics" unique_id=1578005706]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/CommonMetrics/Speed" unique_id=1139840531]
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/PanelCommon/CommonMetrics/Speed" unique_id=1139840531]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5689727, 0.56897277, 0.5689727, 1)
@@ -40,16 +54,16 @@ theme_override_font_sizes/font_size = 12
 text = "SPEED"
 horizontal_alignment = 2
 
-[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/CommonMetrics/Speed" unique_id=683881249]
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/PanelCommon/CommonMetrics/Speed" unique_id=683881249]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.89059, 0.89059, 0.8905901, 1)
 text = "76"
 
-[node name="Altitude" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CommonMetrics" unique_id=1805558200]
+[node name="Altitude" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PanelCommon/CommonMetrics" unique_id=1805558200]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/CommonMetrics/Altitude" unique_id=79549900]
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/PanelCommon/CommonMetrics/Altitude" unique_id=79549900]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5689727, 0.56897277, 0.5689727, 1)
@@ -57,29 +71,35 @@ theme_override_font_sizes/font_size = 12
 text = "ALTITUDE"
 horizontal_alignment = 2
 
-[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/CommonMetrics/Altitude" unique_id=1690152888]
+[node name="Value" type="Label" parent="MarginContainer/VBoxContainer/PanelCommon/CommonMetrics/Altitude" unique_id=1690152888]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.89059, 0.89059, 0.8905901, 1)
 text = "76"
 
-[node name="ScoreMetrics" type="GridContainer" parent="MarginContainer/VBoxContainer" unique_id=1981195478]
+[node name="PanelScore" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=35422357]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_45ucu")
+
+[node name="ScoreMetrics" type="GridContainer" parent="MarginContainer/VBoxContainer/PanelScore" unique_id=1981195478]
 layout_mode = 2
 theme_override_constants/h_separation = 20
 columns = 3
 
-[node name="Title0" type="Label" parent="MarginContainer/VBoxContainer/ScoreMetrics" unique_id=287644786]
+[node name="Title0" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=287644786]
 layout_mode = 2
 
-[node name="Title1" type="Label" parent="MarginContainer/VBoxContainer/ScoreMetrics" unique_id=1680846731]
+[node name="Title1" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=1680846731]
 layout_mode = 2
 
-[node name="TitleBest" type="Label" parent="MarginContainer/VBoxContainer/ScoreMetrics" unique_id=710067209]
+[node name="TitleBest" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=710067209]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7490196, 0.83137256, 1, 0.49803922)
 theme_override_font_sizes/font_size = 12
 text = "(BEST)"
 
-[node name="DistanceTitle" type="Label" parent="MarginContainer/VBoxContainer/ScoreMetrics" unique_id=1416614072]
+[node name="DistanceTitle" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=1416614072]
 custom_minimum_size = Vector2(100, 0)
 custom_maximum_size = Vector2(100, -1)
 layout_mode = 2
@@ -90,19 +110,19 @@ text = "DISTANCE
 TRAVELLED"
 horizontal_alignment = 2
 
-[node name="DistanceValue" type="Label" parent="MarginContainer/VBoxContainer/ScoreMetrics" unique_id=419095455]
+[node name="DistanceValue" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=419095455]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.74849516, 0.8326692, 1, 1)
 text = "76"
 
-[node name="DistanceBestValue" type="Label" parent="MarginContainer/VBoxContainer/ScoreMetrics" unique_id=1052052106]
+[node name="DistanceBestValue" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=1052052106]
 custom_minimum_size = Vector2(0, -3.54)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7490196, 0.83137256, 1, 0.49803922)
 theme_override_font_sizes/font_size = 12
 text = "76"
 
-[node name="TopSpeedTitle" type="Label" parent="MarginContainer/VBoxContainer/ScoreMetrics" unique_id=891590205]
+[node name="TopSpeedTitle" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=891590205]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.4051777, 0.59229565, 1, 1)
@@ -110,18 +130,18 @@ theme_override_font_sizes/font_size = 12
 text = "TOP SPEED"
 horizontal_alignment = 2
 
-[node name="TopSpeedValue" type="Label" parent="MarginContainer/VBoxContainer/ScoreMetrics" unique_id=536601779]
+[node name="TopSpeedValue" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=536601779]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.74849516, 0.8326692, 1, 1)
 text = "76"
 
-[node name="TopSpeedBestValue" type="Label" parent="MarginContainer/VBoxContainer/ScoreMetrics" unique_id=840671846]
+[node name="TopSpeedBestValue" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=840671846]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7490196, 0.83137256, 1, 0.49803922)
 theme_override_font_sizes/font_size = 12
 text = "76"
 
-[node name="LandingBonusTitle" type="Label" parent="MarginContainer/VBoxContainer/ScoreMetrics" unique_id=2117982279]
+[node name="LandingBonusTitle" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=2117982279]
 custom_minimum_size = Vector2(100, 0)
 custom_maximum_size = Vector2(100, -1)
 layout_mode = 2
@@ -131,18 +151,18 @@ theme_override_font_sizes/font_size = 12
 text = "LANDING BONUS"
 horizontal_alignment = 2
 
-[node name="LandingBonusValue" type="Label" parent="MarginContainer/VBoxContainer/ScoreMetrics" unique_id=383227905]
+[node name="LandingBonusValue" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=383227905]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.74849516, 0.8326692, 1, 1)
 text = "1.0"
 
-[node name="LandingBonusBestValue" type="Label" parent="MarginContainer/VBoxContainer/ScoreMetrics" unique_id=389522621]
+[node name="LandingBonusBestValue" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=389522621]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7490196, 0.83137256, 1, 0.49803922)
 theme_override_font_sizes/font_size = 12
 text = "1.0"
 
-[node name="ScoreTitle" type="Label" parent="MarginContainer/VBoxContainer/ScoreMetrics" unique_id=1094588443]
+[node name="ScoreTitle" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=1094588443]
 custom_minimum_size = Vector2(100, 0)
 custom_maximum_size = Vector2(100, -1)
 layout_mode = 2
@@ -152,13 +172,13 @@ theme_override_font_sizes/font_size = 16
 text = "SCORE"
 horizontal_alignment = 2
 
-[node name="ScoreValue" type="Label" parent="MarginContainer/VBoxContainer/ScoreMetrics" unique_id=832897133]
+[node name="ScoreValue" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=832897133]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.713179, 0.7725109, 1, 1)
 theme_override_font_sizes/font_size = 24
 text = "4321"
 
-[node name="ScoreBestValue" type="Label" parent="MarginContainer/VBoxContainer/ScoreMetrics" unique_id=876080341]
+[node name="ScoreBestValue" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=876080341]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7137255, 0.77254903, 1, 0.49803922)
 theme_override_font_sizes/font_size = 18

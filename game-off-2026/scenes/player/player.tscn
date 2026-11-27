@@ -2,9 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://p0erdy6g7yfy" path="res://assets/glider/hang_glider_-_low_poly/scene.gltf" id="1_8afob"]
 [ext_resource type="Script" uid="uid://c2x0xiq2ajvgk" path="res://scenes/player/player.gd" id="1_gmlin"]
-[ext_resource type="Script" uid="uid://b8dk4b3c1wp3k" path="res://scripts/aerodynamics.gd" id="3_lvxji"]
+[ext_resource type="Script" uid="uid://b8dk4b3c1wp3k" path="res://scenes/player/aerodynamics.gd" id="3_lvxji"]
 [ext_resource type="Texture2D" uid="uid://rsl61srw4680" path="res://assets/center-of-gravity-icon.png" id="3_p47bc"]
-[ext_resource type="Script" uid="uid://blemx75oy0msx" path="res://scripts/landing_sensors.gd" id="5_p47bc"]
+[ext_resource type="Script" uid="uid://blemx75oy0msx" path="res://scenes/player/landing_sensors.gd" id="5_p47bc"]
+[ext_resource type="FontFile" uid="uid://btjf4l1ct8ndq" path="res://assets/fonts/Lilita_One/LilitaOne-Regular.ttf" id="6_75vfm"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_c113o"]
 points = PackedVector3Array(0.45, 0, 0.65, 0.45, 0, -0.65, -1.6, 1.23, -3.43, -1, 1.23, -3.43, 1.62, 1.23, 0, -1, 1.23, 3.43, -1.6, 1.23, 3.43, -1.615, 0.435, 0, -1.655, 1.23, 0)
@@ -48,17 +49,17 @@ transform = Transform3D(0.08, 0, 0, 0, 0.08, 0, 0, 0, 0.08, 0, 0.7, 0)
 billboard = 1
 texture = ExtResource("3_p47bc")
 
-[node name="CAM" type="Marker3D" parent="." unique_id=1441455189]
+[node name="Aerodynamics" type="Node3D" parent="." unique_id=537515706 node_paths=PackedStringArray("object")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
-
-[node name="Aerodynamics" type="Node3D" parent="." unique_id=537515706 node_paths=PackedStringArray("object", "aerodynamic_center")]
 script = ExtResource("3_lvxji")
 object = NodePath("..")
 wing_area = 7.6
 wing_incidence = 3.0
-aerodynamic_center = NodePath("../CAM")
 chord = 1.0
 metadata/_custom_type_script = "uid://b8dk4b3c1wp3k"
+
+[node name="RayCast3D" type="RayCast3D" parent="Aerodynamics" unique_id=1148700080]
+target_position = Vector3(0, -3.8, 0)
 
 [node name="LandingSensors" type="Node3D" parent="." unique_id=2135933993 node_paths=PackedStringArray("player")]
 script = ExtResource("5_p47bc")
@@ -66,7 +67,7 @@ player = NodePath("..")
 
 [node name="ApproachingSensor" type="RayCast3D" parent="LandingSensors" unique_id=1140376485]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, -0.439)
-target_position = Vector3(0, -1.65, 0)
+target_position = Vector3(0, -3.15, 0)
 
 [node name="LandingSensorL" type="RayCast3D" parent="LandingSensors" unique_id=46152439]
 transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, -0.633, 0.03, -0.435)
@@ -83,3 +84,13 @@ target_position = Vector3(0, -0.1, 0)
 [node name="CrashLandingSensor" type="RayCast3D" parent="LandingSensors" unique_id=93330673]
 transform = Transform3D(1, 0, 0, 0, 0.5406406, -0.84125376, 0, 0.84125376, 0.5406406, 0, 1.2584517, -1.360362)
 target_position = Vector3(0, -0.8, 0)
+
+[node name="BonusLabel" type="Label3D" parent="LandingSensors" unique_id=230542119]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3172547, 0.32338357, 1.6544652)
+billboard = 1
+no_depth_test = true
+modulate = Color(1, 1, 0.2, 1)
+text = "12345"
+font = ExtResource("6_75vfm")
+font_size = 82
+outline_size = 48

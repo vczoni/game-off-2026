@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://djx76ixyetwnp"]
+
+[ext_resource type="FontFile" uid="uid://btjf4l1ct8ndq" path="res://assets/fonts/Lilita_One/LilitaOne-Regular.ttf" id="1_wqeuo"]
+[ext_resource type="Texture2D" uid="uid://cv72kqckvd68b" path="res://assets/controles.svg" id="2_l7mrp"]
+
+[node name="Controls" type="CanvasLayer" unique_id=201467448]
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1166595491]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1296513558]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1044628959]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_wqeuo")
+theme_override_font_sizes/font_size = 72
+text = "CONTROLS"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1084125652]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_right = 80
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=1740444579]
+layout_mode = 2
+texture = ExtResource("2_l7mrp")
+expand_mode = 5
+stretch_mode = 5

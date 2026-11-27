@@ -5,7 +5,6 @@ extends Node3D
 @export var object: RigidBody3D
 @export var wing_area: float
 @export var wing_incidence: float = 5
-@export var aerodynamic_center: Marker3D
 @export var chord: float
 
 @export_category("Surface Control")
@@ -23,6 +22,9 @@ extends Node3D
 @export_category("Atmosphere")
 @export var air_density: float = 1.2
 
+@onready var ground_effect_detector: RayCast3D = \
+	find_children("*", "RayCast3D", false, false)[0] as RayCast3D
+
 var cla: float
 var cl0_f3: float
 var k0: float
@@ -39,6 +41,7 @@ var L: float
 var D: float
 var M: float
 var aoa: float
+var wing_span: float
 var AR: float
 
 var vinf: Vector3
@@ -70,6 +73,7 @@ func _ready() -> void:
 	k1 = (clmax - cl0)/amax * -2/(h**2 - 1)
 	k2 = (clmax - cl0)/(amax**2)/(h**2 - 1)
 	cl0_f3 = 2*_f1(amin) - cl0
+	wing_span = wing_area / chord
 
 
 func _physics_process(_delta: float) -> void:
@@ -82,7 +86,7 @@ func _physics_process(_delta: float) -> void:
 # apply forces
 
 func apply_flight_forces() -> void:
-	object.apply_force(Lvector + Dvector, object.global_basis * aerodynamic_center.position)
+	object.apply_force(Lvector + Dvector, object.global_basis * position)
 	object.apply_torque(Mvector)
 
 
@@ -127,6 +131,9 @@ func calc_coeffs() -> void:
 		# CM
 		CM = cm
 
+	# groud effect
+	check_ground_effect()
+
 
 func calculate_cl() -> void:
 	if aoa < amin:
@@ -157,12 +164,39 @@ func get_dynamic_pressure() -> float:
 
 func calc_aerodynamic_forces() -> void:
 	var qS: float = get_dynamic_pressure() * wing_area
+
 	L = qS * CL
 	D = qS * CD
 	M = qS * CM * chord
-	
-	Dvector = D * -vinf.normalized()
-	var Dvector_local = global_basis.inverse() * Dvector
-	var Lvector_local = Dvector_local.rotated(Vector3.RIGHT, -PI/2.0)
-	Lvector = L * (global_basis * Lvector_local).normalized()
-	Mvector = global_basis.x * M
+
+	if vinf.length() > 0:
+		Dvector = D * -vinf.normalized()
+		var Dvector_local = global_basis.inverse() * Dvector
+		var Lvector_local = Dvector_local.rotated(Vector3.RIGHT, -PI/2.0)
+		Lvector = L * (global_basis * Lvector_local).normalized()
+		Mvector = global_basis.x * M
+
+
+# ground effect
+
+func check_ground_effect() -> void:
+	if ground_effect_detector.is_colliding():
+		apply_ground_effect()
+
+
+func apply_ground_effect() -> void:
+	if vinf.length() > 1.0:
+		var h_ge: float = (global_position - ground_effect_detector.get_collision_point()).y/2
+		var r: float = h_ge/wing_span
+
+		#  effect on CD
+		var R_cd = 1 - exp(-2.48*(2*r)**(0.768))
+		CDi = R_cd * CDi
+		CD = cd + CDi
+		
+		#  effect on CL
+		var R_cl: float = (
+			(1 + 0.918*(288*(r**0.787)*exp(-9.14*(r**0.327))/(8**0.882)))
+			* (1 + 0.269*(CL**1.45)/((8**3.18)*r**1.12))
+		)
+		CL = R_cl * CL

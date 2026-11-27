@@ -1,0 +1,8 @@
+[gd_resource type="Theme" format=3 uid="uid://dg273to6xo66o"]
+
+[ext_resource type="FontFile" uid="uid://btjf4l1ct8ndq" path="res://assets/fonts/Lilita_One/LilitaOne-Regular.ttf" id="1_6ttjm"]
+
+[resource]
+Button/fonts/font = ExtResource("1_6ttjm")
+Label/font_sizes/font_size = 32
+Label/fonts/font = ExtResource("1_6ttjm")

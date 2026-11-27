@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameManager="*uid://b146btwkbt63j"
 GameInputs="*uid://bxvnsolua8hj2"
+GameScores="*uid://bps2j7rrj5ucd"
 
 [display]
 
