@@ -3,9 +3,9 @@
 [ext_resource type="FontFile" uid="uid://btjf4l1ct8ndq" path="res://assets/fonts/Lilita_One/LilitaOne-Regular.ttf" id="1_ot62a"]
 [ext_resource type="Script" uid="uid://biva6h4y34s5k" path="res://scenes/ui/play_button.gd" id="1_rr3bb"]
 [ext_resource type="Theme" uid="uid://dg273to6xo66o" path="res://resources/theme1.tres" id="2_srt8m"]
+[ext_resource type="Script" uid="uid://ch1mxahxaelyc" path="res://scenes/ui/controls_button.gd" id="4_srt8m"]
 
 [node name="CrashedScreen" type="CanvasLayer" unique_id=549713831]
-process_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=410759209]
 anchors_preset = 15
@@ -56,6 +56,7 @@ layout_mode = 2
 theme = ExtResource("2_srt8m")
 text = "CONTROLS"
 alignment = 0
+script = ExtResource("4_srt8m")
 
 [node name="ScoreboardButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer/VBoxContainer" unique_id=577644178]
 layout_mode = 2
@@ -70,3 +71,4 @@ text = "MAIN MENU"
 alignment = 0
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonContainer/VBoxContainer/PlayButton" to="MarginContainer/VBoxContainer/ButtonContainer/VBoxContainer/PlayButton" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonContainer/VBoxContainer/ControlsButton" to="MarginContainer/VBoxContainer/ButtonContainer/VBoxContainer/ControlsButton" method="_on_pressed"]

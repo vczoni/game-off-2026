@@ -7,8 +7,11 @@
 [ext_resource type="Script" uid="uid://blemx75oy0msx" path="res://scenes/player/landing_sensors.gd" id="5_p47bc"]
 [ext_resource type="FontFile" uid="uid://btjf4l1ct8ndq" path="res://assets/fonts/Lilita_One/LilitaOne-Regular.ttf" id="6_75vfm"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rssyh"]
+friction = 0.35
+
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_c113o"]
-points = PackedVector3Array(0.45, 0, 0.65, 0.45, 0, -0.65, -1.6, 1.23, -3.43, -1, 1.23, -3.43, 1.62, 1.23, 0, -1, 1.23, 3.43, -1.6, 1.23, 3.43, -1.615, 0.435, 0, -1.655, 1.23, 0)
+points = PackedVector3Array(0.45, 0, 0.65, 0.45, 0, -0.65, -1.6, 1.23, -3.43, -1, 1.23, -3.43, 1.62, 1.23, 0, -1, 1.23, 3.43, -1.6, 1.23, 3.43, -1.615, 0.76, 0, -1.655, 1.23, 0)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_45ucu"]
 transparency = 1
@@ -22,6 +25,7 @@ size = Vector2(1, 2)
 [node name="Player" type="RigidBody3D" unique_id=1441651900]
 collision_layer = 2
 mass = 100.0
+physics_material_override = SubResource("PhysicsMaterial_rssyh")
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, 0.7, 0)
 contact_monitor = true
@@ -56,6 +60,7 @@ object = NodePath("..")
 wing_area = 7.6
 wing_incidence = 3.0
 chord = 1.0
+yaw_intensity = 850.0
 metadata/_custom_type_script = "uid://b8dk4b3c1wp3k"
 
 [node name="RayCast3D" type="RayCast3D" parent="Aerodynamics" unique_id=1148700080]
@@ -78,8 +83,8 @@ transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0.633, 0.03
 target_position = Vector3(0, -0.07, 0)
 
 [node name="SafeLandingSensor" type="RayCast3D" parent="LandingSensors" unique_id=1944438455]
-transform = Transform3D(1, 0, 0, 0, 0.9730015, 0.23079894, 0, -0.23079894, 0.9730015, 0, 0.4536975, 1.5595554)
-target_position = Vector3(0, -0.1, 0)
+transform = Transform3D(1, 0, 0, 0, 0.94261134, 0.33389196, 0, -0.33389196, 0.94261134, 0, 0.76495165, 1.5595554)
+target_position = Vector3(0, -0.25, 0)
 
 [node name="CrashLandingSensor" type="RayCast3D" parent="LandingSensors" unique_id=93330673]
 transform = Transform3D(1, 0, 0, 0, 0.5406406, -0.84125376, 0, 0.84125376, 0.5406406, 0, 1.2584517, -1.360362)

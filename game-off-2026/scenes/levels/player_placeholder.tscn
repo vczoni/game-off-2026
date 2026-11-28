@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c6anslygwm3mp"]
+
+[ext_resource type="Script" uid="uid://dw15o7cn0gawi" path="res://scenes/levels/player_placeholder.gd" id="1_4kg0q"]
+[ext_resource type="PackedScene" uid="uid://p0erdy6g7yfy" path="res://assets/glider/hang_glider_-_low_poly/scene.gltf" id="2_eqllu"]
+
+[node name="PlayerPlaceholder" type="Node3D" unique_id=2005679955]
+script = ExtResource("1_4kg0q")
+
+[node name="Sketchfab_Scene" parent="." unique_id=1465219524 instance=ExtResource("2_eqllu")]
+transform = Transform3D(-2.1855695e-09, 0, 0.05, 0, 0.05, 0, -0.05, 0, -2.1855695e-09, 0, 0, 0)

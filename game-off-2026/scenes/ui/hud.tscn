@@ -101,7 +101,6 @@ text = "(BEST)"
 
 [node name="DistanceTitle" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=1416614072]
 custom_minimum_size = Vector2(100, 0)
-custom_maximum_size = Vector2(100, -1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.4051777, 0.59229565, 1, 1)
 theme_override_constants/line_spacing = -1
@@ -142,8 +141,8 @@ theme_override_font_sizes/font_size = 12
 text = "76"
 
 [node name="LandingBonusTitle" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=2117982279]
-custom_minimum_size = Vector2(100, 0)
-custom_maximum_size = Vector2(100, -1)
+custom_minimum_size = Vector2(120, 0)
+custom_maximum_size = Vector2(500, -1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.4051777, 0.59229565, 1, 1)
 theme_override_constants/line_spacing = -1
@@ -164,11 +163,10 @@ text = "1.0"
 
 [node name="ScoreTitle" type="Label" parent="MarginContainer/VBoxContainer/PanelScore/ScoreMetrics" unique_id=1094588443]
 custom_minimum_size = Vector2(100, 0)
-custom_maximum_size = Vector2(100, -1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5316778, 0.61508673, 1, 1)
 theme_override_constants/line_spacing = -1
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 20
 text = "SCORE"
 horizontal_alignment = 2
 

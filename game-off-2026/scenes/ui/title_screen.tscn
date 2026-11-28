@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://biva6h4y34s5k" path="res://scenes/ui/play_button.gd" id="1_cbih2"]
 [ext_resource type="FontFile" uid="uid://btjf4l1ct8ndq" path="res://assets/fonts/Lilita_One/LilitaOne-Regular.ttf" id="1_w8uqo"]
 [ext_resource type="Theme" uid="uid://dg273to6xo66o" path="res://resources/theme1.tres" id="2_a4ium"]
+[ext_resource type="Script" uid="uid://ch1mxahxaelyc" path="res://scenes/ui/controls_button.gd" id="4_a4ium"]
 
 [node name="TitleScreen" type="CanvasLayer" unique_id=549713831]
-process_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=410759209]
 anchors_preset = 15
@@ -56,6 +56,7 @@ layout_mode = 2
 theme = ExtResource("2_a4ium")
 text = "CONTROLS"
 alignment = 0
+script = ExtResource("4_a4ium")
 
 [node name="ScoreboardButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonContainer/VBoxContainer" unique_id=577644178]
 layout_mode = 2
@@ -70,3 +71,4 @@ text = "CREDITS"
 alignment = 0
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonContainer/VBoxContainer/PlayButton" to="MarginContainer/VBoxContainer/ButtonContainer/VBoxContainer/PlayButton" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ButtonContainer/VBoxContainer/ControlsButton" to="MarginContainer/VBoxContainer/ButtonContainer/VBoxContainer/ControlsButton" method="_on_pressed"]

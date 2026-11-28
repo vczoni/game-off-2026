@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://bw18xfrxn153e"]
+
+[ext_resource type="PackedScene" uid="uid://c6anslygwm3mp" path="res://scenes/levels/player_placeholder.tscn" id="1_f5vym"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m802k"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_i2aat"]
+sky_material = SubResource("ProceduralSkyMaterial_m802k")
+
+[sub_resource type="Environment" id="Environment_2djvx"]
+background_mode = 2
+sky = SubResource("Sky_i2aat")
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f5vym"]
+albedo_color = Color(0.22670749, 0.22670749, 0.22670746, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vq1pa"]
+albedo_color = Color(0.043020323, 0.5765887, 5.7756904e-07, 1)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_f5vym"]
+
+[node name="Level02" type="Node3D" unique_id=1607144079]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=529221567]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1364744447]
+environment = SubResource("Environment_2djvx")
+
+[node name="LandingSpots" type="Node3D" parent="." unique_id=440149928]
+
+[node name="Lane" type="CSGBox3D" parent="LandingSpots" unique_id=806792897]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.45, -79.108)
+material_override = SubResource("StandardMaterial3D_f5vym")
+use_collision = true
+size = Vector3(10, 3, 152.217)
+
+[node name="Field" type="CSGBox3D" parent="LandingSpots" unique_id=600130406]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -78.338135)
+material_override = SubResource("StandardMaterial3D_vq1pa")
+use_collision = true
+size = Vector3(80, 3, 159.67627)
+
+[node name="PlayerPlaceholder" parent="." unique_id=2005679955 instance=ExtResource("1_f5vym")]
+transform = Transform3D(0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, 0.70710677, -300, 150, 400)
+player_initial_speed = 30
+
+[node name="CrashBoundary" type="Area3D" parent="." unique_id=1682105223]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.5, -78.338135)
+collision_layer = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CrashBoundary" unique_id=22198385]
+shape = SubResource("WorldBoundaryShape3D_f5vym")

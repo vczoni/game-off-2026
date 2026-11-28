@@ -66,8 +66,10 @@ set_trim={
 
 [layer_names]
 
+3d_render/layer_3="Crash Site"
 3d_physics/layer_1="World"
 3d_physics/layer_2="Player"
+3d_physics/layer_3="Crash Site"
 
 [physics]
 

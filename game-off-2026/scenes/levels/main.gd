@@ -2,18 +2,27 @@ extends Node3D
 
 
 @export var game_state: GameManager.GameState
+@export var initial_level_id: int = 1
 
-@onready var player: Player = $Level01/Player
-@onready var camera_follow: CameraFollow = $Level01/CameraFollow
+@onready var player: Player = $Player
+@onready var camera_follow: CameraFollow = $CameraFollow
 @onready var game_hud: GameHUD = $UI/HUD
 @onready var title_screen: CanvasLayer = $UI/TitleScreen
 @onready var pause_screen: CanvasLayer = $UI/PauseScreen
+@onready var control_screen: CanvasLayer = $UI/Controls
 @onready var crashed_screen: CanvasLayer = $UI/CrashedScreen
 @onready var landed_screen: CanvasLayer = $UI/LandedScreen
 @onready var fade_to_black: ColorRect = $UI/FadeToBlack
 
-var current_level: int
-var n_levels: int = 1
+const LEVEL_PATHS: Array[String] = [
+	"res://scenes/levels/level_01.tscn",
+	"res://scenes/levels/level_02.tscn",
+]
+
+var current_level_id: int
+var current_level: Node3D
+var n_levels: int
+
 var _initial_player_position: Vector3
 var _last_player_position: Vector3
 var v_player: float
@@ -32,6 +41,7 @@ var score: int:
 # functions
 
 func _ready() -> void:
+	n_levels = len(LEVEL_PATHS)
 	main_level_setup()
 	GameManager.init_main()
 	GameManager.enter_state(game_state)
@@ -41,7 +51,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if GameInputs.reset_requested:
-		reset_level()
+		reset_player()
 		return
 
 	v_player = player.linear_velocity.length()
@@ -52,22 +62,28 @@ func _process(_delta: float) -> void:
 
 func main_level_setup() -> void:
 	hide_ui()
+	set_current_level(initial_level_id)
+	reset_level()
+	update_hud_best_values()
+	print(distance)
+
+
+func reset_level() -> void:
 	_initial_player_position = player.global_position
 	GameScores.reset_best_scores(n_levels)
 	reset_score_aux_vars()
-	set_current_level(1)
-	update_hud_best_values()
 
 
 func hide_ui() -> void:
 	game_hud.hide()
 	pause_screen.hide()
+	control_screen.hide()
 	title_screen.hide()
 	crashed_screen.hide()
 	landed_screen.hide()
 
 
-func reset_level() -> void:
+func reset_player() -> void:
 	player.reset_body()
 	camera_follow.reset_position()
 	reset_score_aux_vars()
@@ -101,16 +117,15 @@ func update_hud() -> void:
 
 
 func update_hud_best_values() -> void:
-	game_hud.update_best_max_speed(current_level)
-	game_hud.update_best_distance(current_level)
-	game_hud.update_best_landing_bonus(current_level)
-	game_hud.update_best_score(current_level)
+	game_hud.update_best_max_speed(current_level_id)
+	game_hud.update_best_distance(current_level_id)
+	game_hud.update_best_landing_bonus(current_level_id)
+	game_hud.update_best_score(current_level_id)
 
 
 func set_title_screen() -> void:
+	hide_ui()
 	title_screen.show()
-	camera_follow.set_to_orbit()
-	get_tree().paused = true
 
 
 func start_game() -> void:
@@ -124,6 +139,11 @@ func pause_game() -> void:
 	game_hud.show()
 	pause_screen.show()
 	camera_follow.set_to_orbit()
+
+
+func show_control() -> void:
+	hide_ui()
+	control_screen.show()
 
 
 func unpause_game() -> void:
@@ -143,22 +163,54 @@ func level_complete_routine() -> void:
 	landed_screen.show()
 	camera_follow.set_to_orbit()
 	register_best_scores()
-	landed_screen.write_scores(score, GameScores.get_best_score(current_level))
+	landed_screen.write_scores(score, GameScores.get_best_score(current_level_id))
 
 
 func register_best_scores() -> void:
-	GameScores.check_and_set_best_distance(current_level, distance)
-	GameScores.check_and_set_best_topspeed(current_level, v_max)
-	GameScores.check_and_set_best_landing_bonus(current_level, player.landing_sensors.landing_bonus)
-	GameScores.check_and_set_best_score(current_level, score)
+	GameScores.check_and_set_best_distance(current_level_id, distance)
+	GameScores.check_and_set_best_topspeed(current_level_id, v_max)
+	GameScores.check_and_set_best_landing_bonus(current_level_id, player.landing_sensors.landing_bonus)
+	GameScores.check_and_set_best_score(current_level_id, score)
 	update_hud_best_values()
 
 
 # level managemnent
 
+func get_level_path(level_id: int) -> String:
+	return LEVEL_PATHS[level_id-1]
+
+
 func set_current_level(level_id: int) -> void:
-	current_level = level_id
+	# set level
+	current_level_id = level_id
+	var level_scene := load(get_level_path(level_id)) as PackedScene
+	current_level = level_scene.instantiate()
+	add_child(current_level)
+
+	# reposition player
+	var spawn := current_level.get_node("PlayerPlaceholder") as PlayerPlaceholder
+	player.global_transform = spawn.global_transform
+	player.initial_speed = spawn.player_initial_speed
+	player.init_player()
+	spawn.hide()
+	camera_follow.start()
+
+
+func change_level(level_id: int) -> void:
+	GameManager.reset_routine()
+	current_level.queue_free()
+	set_current_level(level_id)
+	reset_level()
 
 
 func next_level() -> void:
-	pass
+	if current_level_id < n_levels:
+		change_level(current_level_id+1)
+		camera_follow.set_to_follow()
+	else:
+		game_over()
+
+
+func game_over() -> void:
+	change_level(1)
+	GameManager.restart_soft()

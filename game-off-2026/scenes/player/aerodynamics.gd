@@ -8,7 +8,7 @@ extends Node3D
 @export var chord: float
 
 @export_category("Surface Control")
-@export var yaw_intensity: float = 500.0
+@export var yaw_intensity: float = 1000.0
 @export var pitch_back_intensity: float = 200.0
 @export var pitch_forward_intensity: float = 10.0
 
@@ -132,7 +132,7 @@ func calc_coeffs() -> void:
 		CM = cm
 
 	# groud effect
-	check_ground_effect()
+	#check_ground_effect()
 
 
 func calculate_cl() -> void:
@@ -191,7 +191,7 @@ func apply_ground_effect() -> void:
 
 		#  effect on CD
 		var R_cd = 1 - exp(-2.48*(2*r)**(0.768))
-		CDi = R_cd * CDi
+		CDi = clampf(R_cd, 0.2, 1.5) * CDi
 		CD = cd + CDi
 		
 		#  effect on CL
@@ -199,4 +199,4 @@ func apply_ground_effect() -> void:
 			(1 + 0.918*(288*(r**0.787)*exp(-9.14*(r**0.327))/(8**0.882)))
 			* (1 + 0.269*(CL**1.45)/((8**3.18)*r**1.12))
 		)
-		CL = R_cl * CL
+		CL = clampf(R_cl, 0.9, 2.5) * CL

@@ -18,8 +18,7 @@ var state: CameraState
 
 
 func _ready() -> void:
-	reset_position()
-	set_to_orbit()
+	start()
 
 
 func _physics_process(delta: float) -> void:
@@ -29,6 +28,11 @@ func _physics_process(delta: float) -> void:
 		orbit(delta)
 	elif state == CameraState.CRASHED:
 		crashed()
+
+
+func start() -> void:
+	reset_position()
+	set_to_orbit()
 
 
 func reset_position() -> void:

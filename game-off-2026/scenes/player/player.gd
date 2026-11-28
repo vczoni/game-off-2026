@@ -12,6 +12,7 @@ extends RigidBody3D
 @export var cg_trans_speed: float = 2.4
 @export var cg_trans_trim_speed: float = 0.6
 @export var cg_return_speed: float = 4.8
+@export var lateral_friction := 30.0
 
 
 @export_group("Player Velocity")
@@ -30,17 +31,7 @@ var cg_xz_trim: Vector2
 # main functions
 
 func _ready() -> void:
-	initial_transform = global_transform
-	center_of_mass.z += cg_trans_trim
-	initial_cg = center_of_mass
-	reset_cg_trim()
-	lock_rotation = false
-	cg_range.position.y = center_of_mass.y
-	var cg_plane := cg_range.mesh as PlaneMesh
-	cg_plane.size.y = max_cg_z - min_cg_z
-	cg_plane.size.x = cg_x_width
-	cg_plane.center_offset.z = (max_cg_z + min_cg_z)/2
-	set_initial_velocity()
+	init_player()
 
 
 func _physics_process(delta: float) -> void:
@@ -54,9 +45,28 @@ func _physics_process(delta: float) -> void:
 	else:
 		shift_cg(delta)
 
+	# lateral friction
+	var lateral_axis := global_basis.x.normalized()
+	var lateral_speed := linear_velocity.dot(lateral_axis)
+	apply_central_force(-lateral_axis * lateral_speed * lateral_friction)
+
 	if GameInputs.trim_reset_activated:
 		hard_reset_cg_trim()
 		GameInputs.deactivate_trim_reset()
+
+
+func init_player() -> void:
+	initial_transform = global_transform
+	center_of_mass.z += cg_trans_trim
+	initial_cg = center_of_mass
+	reset_cg_trim()
+	lock_rotation = false
+	cg_range.position.y = center_of_mass.y
+	var cg_plane := cg_range.mesh as PlaneMesh
+	cg_plane.size.y = max_cg_z - min_cg_z
+	cg_plane.size.x = cg_x_width
+	cg_plane.center_offset.z = (max_cg_z + min_cg_z)/2
+	set_initial_velocity()
 
 
 func set_initial_velocity() -> void:
